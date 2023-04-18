@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6441917",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2182747", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 99.772190411342308, "MasPeque": 99.772190411342308, "Area": 99.772190411342308, "MasLargo": 63.896263927890558, "MasCorto": 63.896263927890558, "Perimetro": 63.896263927890558, "MaxNodos": 7, "MinNodos": 7, "Nodos": 7, "Abcisa": 665551.3538, "Norte": 4200920.6147999996, "Contrato": "6441917", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "MEDIODIA", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "ALGEZARES", "Barrio": "ALGEZARES", "Contador": "12-134061", "FechaInstContador": "2013-05-17", "Telectura": "N", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 1658.4691345738138, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6441917" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 665567.099700000137091, 4200923.873299999162555 ], [ 665552.939600000157952, 4200916.523399999365211 ], [ 665551.393299999646842, 4200919.354000000283122 ], [ 665551.935600000433624, 4200919.6502 ], [ 665576.212000000290573, 4200932.911399999633431 ], [ 665577.399699999950826, 4200931.153300000354648 ], [ 665578.312800000421703, 4200929.801699999719858 ], [ 665567.099700000137091, 4200923.873299999162555 ] ] ] ] } }
+]
+}

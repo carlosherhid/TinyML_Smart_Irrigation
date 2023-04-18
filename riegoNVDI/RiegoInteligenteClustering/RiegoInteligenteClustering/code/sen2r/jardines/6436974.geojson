@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6436974",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2182998", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 372.29725504200906, "MasPeque": 372.29725504200906, "Area": 372.29725504200906, "MasLargo": 79.9624760061796, "MasCorto": 79.9624760061796, "Perimetro": 79.9624760061796, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 662238.3267, "Norte": 4202475.1594000002, "Contrato": "6436974", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "JARDIN", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "ALJUCER", "Barrio": "ALJUCER", "Contador": "I20BC009604G", "FechaInstContador": "2020-07-28", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "25", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 2340.8240537072111, "Principal": "MU62", "Alternativa1": "MO12", "Alternativa2": "MU21", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6436974" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 662234.923299999907613, 4202465.5406 ], [ 662249.433299999684095, 4202468.020500000566244 ], [ 662253.872999999672174, 4202443.240399999544024 ], [ 662239.292999999597669, 4202440.660499999299645 ], [ 662234.923299999907613, 4202465.5406 ] ] ] ] } }
+]
+}

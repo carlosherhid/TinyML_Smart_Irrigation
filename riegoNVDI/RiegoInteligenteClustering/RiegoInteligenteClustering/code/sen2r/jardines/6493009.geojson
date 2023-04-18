@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6493009",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2182712", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 19.634870474226773, "MasPeque": 19.634870474226773, "Area": 19.634870474226773, "MasLargo": 31.858630750752809, "MasCorto": 31.858630750752809, "Perimetro": 31.858630750752809, "MaxNodos": 6, "MinNodos": 6, "Nodos": 6, "Abcisa": 666027.9429, "Norte": 4201256.7858999996, "Contrato": "6493009", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "RAMBLA", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "ALGEZARES", "Barrio": "ALGEZARES", "Contador": "I16BA262519C", "FechaInstContador": "2016-08-26", "Telectura": "N", "TipoContador": "MECANICO", "ModeloContador": "FLODIS", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 2161.841716070257, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6493009" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 666027.041799999773502, 4201263.654400000348687 ], [ 666024.665000000037253, 4201264.160299999639392 ], [ 666024.939100000075996, 4201265.313699999824166 ], [ 666029.341500000096858, 4201264.403699999675155 ], [ 666021.928999999538064, 4201254.360400000587106 ], [ 666021.355999999679625, 4201255.9506 ], [ 666027.041799999773502, 4201263.654400000348687 ] ] ] ] } }
+]
+}

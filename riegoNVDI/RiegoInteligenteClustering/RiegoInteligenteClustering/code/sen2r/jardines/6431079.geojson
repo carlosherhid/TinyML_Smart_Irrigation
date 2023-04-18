@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6431079",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2183373", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 251.11105332862644, "MasPeque": 251.11105332862644, "Area": 251.11105332862644, "MasLargo": 69.532166221333711, "MasCorto": 69.532166221333711, "Perimetro": 69.532166221333711, "MaxNodos": 8, "MinNodos": 8, "Nodos": 8, "Abcisa": 664723.9124, "Norte": 4210116.6398, "Contrato": "6431079", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "AV.MURCIA", "Indicacion": "SN C-5-JA-2", "ComplementoDireccion": null, "Localidad": "CABEZO DE TORRES", "Barrio": "CABEZO DE TORRES", "Contador": "D12FE134028W", "FechaInstContador": "2013-05-13", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 9353.2721817359379, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6431079" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664700.973600000143051, 4210104.652799999341369 ], [ 664717.510099999606609, 4210118.345000000670552 ], [ 664722.120600000023842, 4210111.497099999338388 ], [ 664726.505900000222027, 4210104.9836 ], [ 664726.902800000272691, 4210103.991399999707937 ], [ 664726.042899999767542, 4210098.89809999987483 ], [ 664712.294400000013411, 4210102.054099999368191 ], [ 664702.611399999819696, 4210104.276799999177456 ], [ 664700.973600000143051, 4210104.652799999341369 ] ] ] ] } }
+]
+}

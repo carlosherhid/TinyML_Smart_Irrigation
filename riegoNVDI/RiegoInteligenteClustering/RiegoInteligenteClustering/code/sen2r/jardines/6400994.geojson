@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6400994",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2184503", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 65.930136151611805, "MasPeque": 65.930136151611805, "Area": 65.930136151611805, "MasLargo": 30.247259526146657, "MasCorto": 30.247259526146657, "Perimetro": 30.247259526146657, "MaxNodos": 6, "MinNodos": 6, "Nodos": 6, "Abcisa": 669355.9671, "Norte": 4187372.6529000001, "Contrato": "6400994", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "AV.JUAN CARLOS I", "Indicacion": "SN M-2-JA", "ComplementoDireccion": "JARDIN", "Localidad": "LOS MARTINEZ DEL PUERTO", "Barrio": "LOS MARTINEZ DEL PUERTO", "Contador": "D12FE126398W", "FechaInstContador": "2014-11-21", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 9060.7981640411836, "Principal": "CA42", "Alternativa1": "MU62", "Alternativa2": "CA91", "Alternativa3": "MU21", "Alternativa4": "MO12", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXG", "Mosaico2": "30SXG", "ID": "6400994" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 669373.232400000095367, 4187365.800200000405312 ], [ 669377.752199999988079, 4187364.553300000727177 ], [ 669379.051199999637902, 4187359.669700000435114 ], [ 669375.466400000266731, 4187355.981100000441074 ], [ 669370.530799999833107, 4187357.6436 ], [ 669369.387799999676645, 4187362.78690000064671 ], [ 669373.232400000095367, 4187365.800200000405312 ] ] ] ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6441237",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181737", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 36.441242006840184, "MasPeque": 36.441242006840184, "Area": 36.441242006840184, "MasLargo": 29.117461051311579, "MasCorto": 29.117461051311579, "Perimetro": 29.117461051311579, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 663389.823, "Norte": 4205586.7099000001, "Contrato": "6441237", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "ERICAS", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "SAN ANTOLIN", "Contador": "I16BE101799M", "FechaInstContador": "2018-05-31", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 4821.4076137735201, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6441237" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 663384.251799999736249, 4205585.549000000581145 ], [ 663387.642, 4205596.418999999761581 ], [ 663390.671900000423193, 4205595.498999999836087 ], [ 663387.391800000332296, 4205584.678999999538064 ], [ 663384.251799999736249, 4205585.549000000581145 ] ] ] ] } }
+]
+}

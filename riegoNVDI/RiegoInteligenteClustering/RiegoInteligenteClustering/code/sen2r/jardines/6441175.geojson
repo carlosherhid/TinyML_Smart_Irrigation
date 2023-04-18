@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6441175",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181752", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 50.718542497605085, "MasPeque": 50.718542497605085, "Area": 50.718542497605085, "MasLargo": 30.532013675633976, "MasCorto": 30.532013675633976, "Perimetro": 30.532013675633976, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 663318.7877, "Norte": 4205640.8781000003, "Contrato": "6441175", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "HUERTO POMARES", "Indicacion": "SN C-14-JA-11", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "SAN ANTOLIN", "Contador": "D12FE130171M", "FechaInstContador": "2014-01-28", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 4876.977456128634, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6441175" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 663331.492499999701977, 4205642.959100000560284 ], [ 663332.602400000207126, 4205637.919099999591708 ], [ 663323.842400000430644, 4205636.129100000485778 ], [ 663320.752500000409782, 4205640.599099999293685 ], [ 663331.492499999701977, 4205642.959100000560284 ] ] ] ] } }
+]
+}

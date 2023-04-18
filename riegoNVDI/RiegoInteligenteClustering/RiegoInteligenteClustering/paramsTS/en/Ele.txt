@@ -1,0 +1,9 @@
+"tit";"unit";"by";"col";"limInf";"limSup"
+"T";"Temperature";"(º C)";10;"red";-15;50
+"HR";"Relative Humidity";"(%)";20;"blue";0;100
+"RAD";"Radiation";"($W/m^2$)";200;"dirt";0;1600
+"VV";"Wind Speed";"($m/s$)";4;"pink";0;20
+"DV";"Wind Direction";"(º from N)";45;"magent";0;360
+"BH";"Water Balance";"($mm$)";10;"blue";0;80
+"DPV";"Vapour Pressure Deficit";"($kPa$)";1;"purple";0;5
+"NDVI.scl_7_8_9";"Masked Vegetation Index";"";0.1;"green";-0.3;1

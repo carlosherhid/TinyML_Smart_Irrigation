@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6444397",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2184528", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 67.99104835948674, "MasPeque": 67.99104835948674, "Area": 67.99104835948674, "MasLargo": 65.534212631671366, "MasCorto": 65.534212631671366, "Perimetro": 65.534212631671366, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 666948.6416, "Norte": 4209447.8359000003, "Contrato": "6444397", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "AV.ALICANTE", "Indicacion": "SN C-3-JA", "ComplementoDireccion": null, "Localidad": "MONTEAGUDO", "Barrio": "MONTEAGUDO", "Contador": "I18BB036356P", "FechaInstContador": "2019-01-21", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "20", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 8838.5622647115451, "Principal": "MU21", "Alternativa1": "MU62", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6444397" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 666935.79619999974966, 4209433.00929999910295 ], [ 666951.768299999646842, 4209459.068800000473857 ], [ 666953.55460000038147, 4209457.807800000533462 ], [ 666937.6875, 4209431.748500000685453 ], [ 666935.79619999974966, 4209433.00929999910295 ] ] ] ] } }
+]
+}

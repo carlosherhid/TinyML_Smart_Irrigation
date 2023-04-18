@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6444852",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2183792", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 5.3520160339539871, "MasPeque": 5.3520160339539871, "Area": 5.3520160339539871, "MasLargo": 9.2682521985574091, "MasCorto": 9.2682521985574091, "Perimetro": 9.2682521985574091, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 661917.6424, "Norte": 4188399.4306000001, "Contrato": "6444852", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "PL.LUIS FONTES PAGAN", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "CORVERA", "Barrio": "CORVERA", "Contador": "13-488638", "FechaInstContador": "2013-10-19", "Telectura": "N", "TipoContador": "VOLUMETRICO", "ModeloContador": "ALTAIR V4 TI", "Calibre": "13", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 9542.7378412219823, "Principal": "CA42", "Alternativa1": "MU62", "Alternativa2": "CA91", "Alternativa3": "MO12", "Alternativa4": "MU21", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXG", "Mosaico2": "30SXG", "ID": "6444852" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 661859.844499999657273, 4188595.713600000366569 ], [ 661861.442900000140071, 4188593.886900000274181 ], [ 661859.708200000226498, 4188592.530300000682473 ], [ 661858.097400000318885, 4188594.285299999639392 ], [ 661859.844499999657273, 4188595.713600000366569 ] ] ] ] } }
+]
+}

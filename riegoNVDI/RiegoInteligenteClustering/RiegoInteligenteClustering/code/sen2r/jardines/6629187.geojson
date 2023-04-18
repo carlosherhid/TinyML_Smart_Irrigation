@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6629187",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2206955", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 88.594124488299713, "MasPeque": 88.594124488299713, "Area": 88.594124488299713, "MasLargo": 49.165736368624678, "MasCorto": 49.165736368624678, "Perimetro": 49.165736368624678, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 664762.7241, "Norte": 4210764.0542000001, "Contrato": "6629187", "Actividad": "VIVIENDAS", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "AV.ALTO ATALAYAS", "Indicacion": "SN M-16-JA", "ComplementoDireccion": "R.U.R. AGUA POTABLE", "Localidad": "CABEZO DE TORRES", "Barrio": "CABEZO DE TORRES", "Contador": "D16FE056135U", "FechaInstContador": "2019-12-11", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA SUMINISTRO DE LA RUR, SONDEOS Y RIEGOS", "Distancia": 9754.5671924627386, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6629187" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664445.245600000023842, 4210522.008500000461936 ], [ 664459.839200000278652, 4210535.958100000396371 ], [ 664462.835699999704957, 4210532.878499999642372 ], [ 664448.355600000359118, 4210518.788499999791384 ], [ 664445.245600000023842, 4210522.008500000461936 ] ] ] ] } }
+]
+}

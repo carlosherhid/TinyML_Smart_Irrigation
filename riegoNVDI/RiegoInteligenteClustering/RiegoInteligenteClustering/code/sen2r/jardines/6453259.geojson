@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6453259",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181842", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 283.80772799439728, "MasPeque": 283.80772799439728, "Area": 283.80772799439728, "MasLargo": 81.074853474165508, "MasCorto": 81.074853474165508, "Perimetro": 81.074853474165508, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 663242.3069, "Norte": 4206964.4368000003, "Contrato": "6453259", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "PL.DE TOLEDO", "Indicacion": "SN C-2-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "STA. MARIA DE GRACIA", "Contador": "D15UF047673C", "FechaInstContador": "2017-12-12", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "50", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 6190.2996693128607, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6453259" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 663244.74930000025779, 4206964.342599999159575 ], [ 663252.279299999587238, 4206967.272600000724196 ], [ 663263.428899999707937, 4206937.7226 ], [ 663254.098899999633431, 4206934.292600000277162 ], [ 663244.74930000025779, 4206964.342599999159575 ] ] ] ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6416203",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181951", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 131.71157001564279, "MasPeque": 131.71157001564279, "Area": 131.71157001564279, "MasLargo": 46.837363939721591, "MasCorto": 46.837363939721591, "Perimetro": 46.837363939721591, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 664544.817, "Norte": 4206333.6925999997, "Contrato": "6416203", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "SAN MARTIN DE PORRES", "Indicacion": "SN C-1-JA", "ComplementoDireccion": "OLIMPICO", "Localidad": "MURCIA", "Barrio": "SAN LORENZO", "Contador": "D12TD123906J", "FechaInstContador": "2013-01-30", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLODIS", "Calibre": "30", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 5574.0256288360915, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6416203" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664549.491600000299513, 4206335.649800000712276 ], [ 664562.52170000039041, 4206339.309699999168515 ], [ 664561.671500000171363, 4206325.009700000286102 ], [ 664551.981499999761581, 4206326.889699999243021 ], [ 664549.491600000299513, 4206335.649800000712276 ] ] ] ] } }
+]
+}

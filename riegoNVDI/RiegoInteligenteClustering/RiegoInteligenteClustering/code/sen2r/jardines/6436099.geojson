@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6436099",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2182145", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 231.00577571708709, "MasPeque": 231.00577571708709, "Area": 231.00577571708709, "MasLargo": 74.424258711759279, "MasCorto": 74.424258711759279, "Perimetro": 74.424258711759279, "MaxNodos": 8, "MinNodos": 8, "Nodos": 8, "Abcisa": 664092.7261, "Norte": 4206927.1047, "Contrato": "6436099", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "CASTELICHE", "Indicacion": "SN C-2-JA-B", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "VISTA ALEGRE", "Contador": "D12FE130132F", "FechaInstContador": "2014-01-27", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 6120.6991452632528, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6436099" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664084.928999999538064, 4206922.442900000140071 ], [ 664094.299100000411272, 4206925.642899999395013 ], [ 664099.428899999707937, 4206909.222899999469519 ], [ 664093.876699999906123, 4206907.488199999555945 ], [ 664096.118800000287592, 4206900.142799999564886 ], [ 664089.738699999637902, 4206898.092800000682473 ], [ 664086.428899999707937, 4206909.06279999949038 ], [ 664088.746299999766052, 4206909.7621 ], [ 664084.928999999538064, 4206922.442900000140071 ] ] ] ] } }
+]
+}

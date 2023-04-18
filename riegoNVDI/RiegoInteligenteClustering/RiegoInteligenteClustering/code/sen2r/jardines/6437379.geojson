@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6437379",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181647", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 106.521469514817, "MasPeque": 106.521469514817, "Area": 106.521469514817, "MasLargo": 44.493943710114038, "MasCorto": 44.493943710114038, "Perimetro": 44.493943710114038, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 665192.5599, "Norte": 4206127.1541, "Contrato": "6437379", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "POL PAZ", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "LA PAZ", "Contador": "D11TA835552C", "FechaInstContador": "2014-01-11", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 5483.3669715238166, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6437379" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 665174.639200000092387, 4206132.88539999909699 ], [ 665189.829199999570847, 4206134.08530000038445 ], [ 665190.399100000038743, 4206127.05519999936223 ], [ 665175.129099999554455, 4206126.005400000140071 ], [ 665174.639200000092387, 4206132.88539999909699 ] ] ] ] } }
+]
+}

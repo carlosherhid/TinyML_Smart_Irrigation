@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6420135",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181398", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 77.711097000341397, "MasPeque": 77.711097000341397, "Area": 77.711097000341397, "MasLargo": 39.652552587779738, "MasCorto": 39.652552587779738, "Perimetro": 39.652552587779738, "MaxNodos": 8, "MinNodos": 8, "Nodos": 8, "Abcisa": 664506.5123, "Norte": 4206391.6701999996, "Contrato": "6420135", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "GRECO", "Indicacion": "SN C-2-JA-1", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "LA FAMA", "Contador": "I20BB055040U", "FechaInstContador": "2020-11-13", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "20", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 5624.8136016124263, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6420135" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664519.732300000265241, 4206389.390100000426173 ], [ 664520.9222999997437, 4206387.640100000426173 ], [ 664521.292299999855459, 4206386.390100000426173 ], [ 664521.362300000153482, 4206386.010099999606609 ], [ 664505.792200000025332, 4206384.8902000002563 ], [ 664505.612300000153482, 4206390.510199999436736 ], [ 664516.982300000265241, 4206391.010099999606609 ], [ 664518.732300000265241, 4206390.270099999383092 ], [ 664519.732300000265241, 4206389.390100000426173 ] ] ] ] } }
+]
+}

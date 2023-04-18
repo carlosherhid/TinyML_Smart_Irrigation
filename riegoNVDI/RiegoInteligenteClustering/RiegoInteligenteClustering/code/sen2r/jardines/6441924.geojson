@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6441924",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2184170", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 111.40508450521156, "MasPeque": 111.40508450521156, "Area": 111.40508450521156, "MasLargo": 42.447186086334597, "MasCorto": 42.447186086334597, "Perimetro": 42.447186086334597, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 667602.4155, "Norte": 4202448.8115999997, "Contrato": "6441924", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "LEVANTE", "Indicacion": "SN C-2-JA-1", "ComplementoDireccion": null, "Localidad": "GARRES Y LAGES", "Barrio": "GARRES Y LAGES", "Contador": "I20BB054946X", "FechaInstContador": "2021-01-18", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "20", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 4030.7830917274741, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6441924" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 667595.054800000041723, 4202460.295299999415874 ], [ 667600.954699999652803, 4202452.845200000330806 ], [ 667591.764600000344217, 4202445.475299999117851 ], [ 667585.964700000360608, 4202453.045299999415874 ], [ 667595.054800000041723, 4202460.295299999415874 ] ] ] ] } }
+]
+}

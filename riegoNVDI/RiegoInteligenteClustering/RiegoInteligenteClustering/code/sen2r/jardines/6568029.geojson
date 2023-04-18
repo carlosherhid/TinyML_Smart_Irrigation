@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6568029",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2195985", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 13.979665086604655, "MasPeque": 13.979665086604655, "Area": 13.979665086604655, "MasLargo": 24.164146030895346, "MasCorto": 24.164146030895346, "Perimetro": 24.164146030895346, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 664742.9571, "Norte": 4205990.2377000004, "Contrato": "6568029", "Actividad": "VIVIENDAS", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "OBISPO FRUTOS", "Indicacion": "SN C-3-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "SANTA EULALIA", "Contador": "C18LA099545P", "FechaInstContador": "2018-05-16", "Telectura": "S", "TipoContador": "VOLUMETRICO", "ModeloContador": "ALTAIR V4 C", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 5265.6408228446717, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6568029" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664741.86739999987185, 4206000.1009 ], [ 664743.146399999968708, 4206000.579900000244379 ], [ 664747.207100000232458, 4205990.579500000923872 ], [ 664746.048299999907613, 4205990.169299999251962 ], [ 664741.86739999987185, 4206000.1009 ] ] ] ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6409317",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181840", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 116.16339450073428, "MasPeque": 116.16339450073428, "Area": 116.16339450073428, "MasLargo": 46.218636619793998, "MasCorto": 46.218636619793998, "Perimetro": 46.218636619793998, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 663556.6705, "Norte": 4206871.7493000003, "Contrato": "6409317", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "MIGUEL DE UNAMUNO", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "STA. MARIA DE GRACIA", "Contador": "I20BD018749E", "FechaInstContador": "2020-09-14", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "30", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 6097.9176365472167, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6409317" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 663519.72829999960959, 4206880.362600000575185 ], [ 663522.60840000025928, 4206887.322499999776483 ], [ 663536.97829999960959, 4206881.292600000277162 ], [ 663534.448200000450015, 4206874.492599999532104 ], [ 663519.72829999960959, 4206880.362600000575185 ] ] ] ] } }
+]
+}

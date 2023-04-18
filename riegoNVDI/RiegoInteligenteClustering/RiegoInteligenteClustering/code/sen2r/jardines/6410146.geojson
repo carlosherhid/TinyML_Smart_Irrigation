@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6410146",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2182163", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 78.90276250988245, "MasPeque": 78.90276250988245, "Area": 78.90276250988245, "MasLargo": 42.128921285266912, "MasCorto": 42.128921285266912, "Perimetro": 42.128921285266912, "MaxNodos": 3, "MinNodos": 3, "Nodos": 3, "Abcisa": 664087.8073, "Norte": 4206821.7629000004, "Contrato": "6410146", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "GALILEO", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "VISTA ALEGRE", "Contador": "I18BC065514D", "FechaInstContador": "2018-12-17", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "25", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 6033.0624585480473, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6410146" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664097.557900000363588, 4206834.592700000852346 ], [ 664102.567800000309944, 4206821.192600000649691 ], [ 664091.587700000032783, 4206819.062599999830127 ], [ 664097.557900000363588, 4206834.592700000852346 ] ] ] ] } }
+]
+}

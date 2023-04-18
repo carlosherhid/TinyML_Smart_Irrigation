@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6505874",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2184303", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 273.50743658933789, "MasPeque": 273.50743658933789, "Area": 273.50743658933789, "MasLargo": 85.839518964820726, "MasCorto": 85.839518964820726, "Perimetro": 85.839518964820726, "MaxNodos": 5, "MinNodos": 5, "Nodos": 5, "Abcisa": 656559.0226, "Norte": 4205650.4762000004, "Contrato": "6505874", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "MIGUEL INDURAIN", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "JAVALI NUEVO", "Barrio": "JAVALI NUEVO", "Contador": "D16IA005543Z", "FechaInstContador": "2016-02-08", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 7848.2641927945169, "Principal": "MO12", "Alternativa1": "MU62", "Alternativa2": "MU21", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6505874" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 656527.571899999864399, 4205625.652100000530481 ], [ 656531.251500000245869, 4205643.3991 ], [ 656538.620699999853969, 4205643.830900000408292 ], [ 656533.064600000157952, 4205610.083599999547005 ], [ 656524.10149999987334, 4205608.915400000289083 ], [ 656527.571899999864399, 4205625.652100000530481 ] ] ] ] } }
+]
+}

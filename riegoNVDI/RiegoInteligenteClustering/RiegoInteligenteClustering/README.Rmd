@@ -1,0 +1,215 @@
+---
+title: "Readme"
+author: "Paula Susana Gómez Bernal"
+date: "25/1/2022"
+output:
+  html_document:
+    df_print: paged
+    highlight: kate
+    number_sections: yes
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+    toc_depth: 4
+  pdf_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+
+
+# Contenido
+
++ `README.Rmd`: descripción del contenido y cambios en el código respecto a la primera versión.
++ `RiegoInteligente.Rmd`: descripción del procesamiento de datos.
++ `RiegoInteligente2.Rmd`: descripción de la obtención de resultados.
++ `EjemploEjecucion.Rmd`: muestra la traza de toda una ejecución: obtención de datos y resultados para un clustering y un modelo. Además se señalan dos fallos:
+
+    1. Hay un contrato que en el año pasado tuvo 2 contadores simultáneamente, y no se le calculan bien los consumos durante ese periodo...
+    2. Un fallo durante el entrenamiento por "falta de tolerancia al número de observaciones".
+    En realidad, no se prueban los modelos con los parámetros adecuados y habría que cambiarlos.
+
++ `flexdashboard.Rmd`: boceto de dashboard.
++ `colorRamps`, `paramsTS` contienen parámetros de algunos plots.
+
+## Datos  (`datos`, `datosTFG`)
+
+`RiegoInteligente.Rmd`  y `RiegoInteligente2.Rmd` utilizan los datos que se usaron para el TFG (`datosTFG`), mientras que `EjemploEjecucion.Rmd` obtiene los datos más actualizados (`datos`).
+
+### Datos geográficos y series de datos
+
+Distingumos dos tipos de datos (cada uno se guarda en su sitio):
+
++ geográficos (`geo`)
++ series temporales de datos. Distinguimos entre:
+  - ambientales (`amb`) que incluyen datos
+    * meteorológicos (`met`)
+      + `<estacion>.csv`
+    * y de evapotranspiración de un cultivo de referencia (`et0`)
+      + `<crop>`
+        - `<estacion>.csv`
+  - riego (`riego`) que incluyen
+    * lecturas comprimidas que llegan cada día (`agua`) [VACIA]
+      + `Lecturas_<YYYYMMDD><...>.csv`
+    * lecturas de nuestros contadores (`lecturas`)
+      + `<contrato>.csv`
+    * y consumos de agua diarios (`consumos`)
+      + `<contrato>.csv`
+  - verdor (`verdor`) donde distinguimos
+    * imágenes (`images`) que pueden ser:
+      + `<contrato>`
+        - imágenes satelitales (11 capas) a nivel de procesado 2A (`BOA`)
+          * `S2<A/B>2A_<YYYYMMDD>_051_<contrato>_BOA_10.tif`
+        - un mapa (1 capa) de clasifica los píxeles de las imágenes (`SCL`)
+          * `S2<A/B>2A_<YYYYMMDD>_051_<contrato>_SCL_10.tif`
+        - imágenes a color (3 capas) (`RGB432B`)
+          * `S2<A/B>2A_<YYYYMMDD>_051_<contrato>_RGB432B_10.tif`
+        - imágenes índices (1 capa) de vegetación (`<ind>`)
+          * `S2<A/B>2A_<YYYYMMDD>_051_<contrato>_<ind>_10.tif`
+          * a las que se le aplican máscaras de nubes (`<mask>`)
+            + `S2<A/B>2A_<YYYYMMDD>_051_<contrato>_<ind>_10.tif`
+    * resúmenes estadísticos, como la media, de las imágenes de índices (`summaries`)
+      + `<ind>`
+        - `<mask>`
+          + `<contrato>.csv`
++ Las series temporales se integran (`int`) de modo que pueden ser usadas directamente para entrenar modelos de ML.
+  - `<int>_<crop>_<ind>_<mask>_<agg>`
+    * `<contrato>.csv`
+
+### Resultados de ML (Nuevo)
+
++ Por un lado tenemos los clustering (`clust`),
+  - que se ralizan sobre un conjunto de contratos (`<ind>_<mask>_<agg>`),
+    * utilizando un paquete de R (indicado ocionalmente una medida de disimilitud) y una serie de datos (`<pkg>(_<diss>)?_<serie>.csv`).
++ Y por otro lado tenemos los resultados (`result`) de los 3 escenarios,
+  - sobre un conjunto de datos y contratos (`<int>_<crop>_<ind>_<mask>_<agg>`),
+    * guardamos unos resultados intermedios para un modelo (`<model>.csv`),
+    * y los resultados finales para cada modelo (`<model>`)
+      + para los escenarios 1 y 2, i.e., sin aplicar clustering (`None.csv`),
+      + para el escenario 3, i.e., aplicando un clustering (`<pkg>(_<diss>)?_<serie>.csv`).
+
+## Código  (`code`)
+
+En cuanto al código, tenemos ficheros con
+
+### funcionalidad de datos:
+
+  - `include.R`: contiene definiciones de funciones auxiliares y listas de variables con valores por defecto:
+    * `dflt`: valores por defecto de los parámetros
+    * `dirs`: nombres de directorios
+    * `files`: nombres de ficheros
+    * `paths`: **funciones que devuelven** rutas a directorios y ficheros **dependiendo de `dflt$node`, `dirs` y `files`**
+  - `DatGeo.R`, `DatAmb.R`, `Riego.R`, `Verdor.R`, `DatInt.R`: son listas con las funciones necesarias para manipular cada tipo de dato. Suelen seguir una nomenclatura:
+    * `download`: descargan ficheros
+    * `clean`: eliminar ficheros innecesarios, ordenan ficheros por fechas, etc...
+    * `leer`: leen un fichero
+    * `read`: leen un conjunto de ficheros del mismo tipo
+    * `plot`: generan un gráfico
+    * `consultar`: generan una tabla o devuelven contratos/estaciones/fechas que cumplen determinada condición, principalmente.
+    * `resumir`: obtienen estadísticas sobre un conjunto de ficheros que se guardan para acelerar determinadas consultas y generación de tablas y/o gráficas
+    * `leerResumen`: leen éstas estadísticas
+    * `init`/`update`: escriben (inicializan o actualizan) un conjunto de ficheros del mismo tipo, apoyándose en otras funciones que manipulan un único fichero (`integrar`, `reunir`, `asignar`, `completar`, `extraer`, `calcular` ...), y actualizan las correspondientes estadísticas.
+
+### funcionalidad de ML (Nuevo):
+
+  - `Clust.R`, `ML.R`: son listas con las funciones necesarias para obtener los clusterings y los resultados del aprendizaje. Suelen seguir la misma nomenclatura anterior.
+  - `lstm.R`: es un boceto para `caret` (ver últimas sección de `RiegoInteligente2.Rmd`).
+
+### scripts para ejecutar:
+
+  - `run.R`: para actualizar los **datos/resultados** (llama a las correspondientes `download`, `init`, `update`).
+  Permite mediante *flags* indicar qué tipo de **dato/resultado** se quiere actualizar.
+  - `run.sh`: llama a `run.R` con todos los *flags* de **datos** activos menos el de datos geográficos de jardines.
+  Lanzar para actualizar los datos integrados.
+  
+  <!-- - `run.sh`: llama a `run.R` con todos los *flags* activos menos el de datos geográficos de jardines. -->
+  <!-- - `run_datos.sh`: llama a `run.R` con todos los *flags* de datos activos menos el de datos geográficos de jardines. -->
+  <!-- Lanzar para actualizar los datos integrados. -->
+  <!-- - `run_models.sh`: llama a `run.R` con los *flags* de clustering y ... activos. -->
+  <!-- Lanzar para actualizar los resultados. -->
+  
+  - `run_dibulibu.sh`:llama a `run.R` con el *flag* de datos de riego activo.
+  
+  <!-- Se lanza cada día -->
+  
+  - `run_juno.sh`:llama a `run.R` con el *flag* de datos de verdor activo.
+  
+  <!-- Se lanza cada día/1 vez por semana -->
+
+### scripts para tablas y plots (Nuevo):
+
+  - `savesTFG.R`: para obtener los plots y tablas del TFG en español.
+  - `savesPaper.R`: para obtener los plots y tablas del paper en inglés.
+  Difieren con los del TFG en que algunos (las estadísticas)
+
+
+# Cambios de funcionalidad
+
+<!-- **(**con `sen2r::list_indices(all = T)` podemos ver todos los índices disponibles**) -->
+<!-- Tarea 2. Integración de resúmenes y selección de jardines (`DatInt.R`) -->
+
+Se han paralelizado algunos bucles (funciones `my.lapply`, `my.mapply`), pero no funciona en Windows.
+
+Se ha eliminado la función `Verdor$initParcelasSen2()`.
+La inicialización de las parcelas ahora se hace desde `DatGeo$initJardines()`.
+
+Se ha refactorizado y corregido errores de `Verdor$downloadSentinel2()`.
+Además, cada llamada a `sen2r` genera un fichero en `.sen2r/proc_par/`.
+Ya no hace falta borrarlos a mano, sino que se borran aquí.
+
+También se han arreglado las funciones "`ls`" y "`download`"
+(`Riego$lsFilesAgua`, `Riego$downloadAgua`, `Riego$downloadLecturas`, `Riego$downloadConsumos`,
+`Verdor$lsDirsImgs`, `Verdor$lsFilesImgsInd`, `Verdor$downloadImgInd`, `Verdor$downloadSumInd`)`
+
+Se han generalizado algunas funciones:
+
+| Antes                              | Ahora
+| -----------------------------------|-----------------------------------------
+| `Verdor$lsFilesImgsBOA()`          | `Verdor$lsFilesImgsInd(ind = "BOA")`
+| `Verdor$getFilesImgsBOA()`         | `Verdor$getFilesImgsInd(ind = "BOA")`
+| `Verdor$consultarFilesImgsBOA()`   | `Verdor$consultarFilesImgsInd(ind = "BOA")`
+| `Verdor$resumirFilesImgsBOA()`     | `Verdor$resumirFilesImgsInd(ind = "BOA")`
+| `Verdor$leerResumenFilesImgsBOA()` | `Verdor$leerResumenFilesImgsInd(ind = "BOA")`
+
+
+En general, han habido cambios globales porque se ha cambiado la variable `paths`.
+Ya no guarda rutas, sino funciones que generan rutas **dependiendo de `dflt$node`, `dirs` y `files`**.
+En general, antes hacíamos `paths$<id>` y ahora `paths$<id>()`, salvo algunas excepciones:
+
+| Antes                     | Ahora
+| --------------------------|-----------------------------
+| `paths$contratos`         | `paths$geo("contratos")`
+| `paths$relaciones`        | `paths$geo("relaciones")`
+| `paths$acometidas`        | `paths$geo("acometidas")`
+| `paths$zonas`             | `paths$geo("zonas")`
+| `paths$zonasR`            | `paths$geo("zonasR")`
+| `paths$jardi`             | `paths$geo("jardi")`
+| `paths$estaciones`        | `paths$geo("estaciones")`
+| --------------------------|-----------------------------
+| `paths$parcelas`          | `paths$s2r("parcelas")`
+| `paths$s2lists`           | `paths$s2r("lists")`
+| `paths$jsons`             | `paths$s2r("jsons")`
+| `paths$json`              | `paths$s2r("params")`
+| --------------------------|-----------------------------
+| `paths$accs[account]`     | `paths$acc(account)`
+| `paths$safes[account]`    | `paths$acc(account,"safes")`
+| `paths$apihubs[account]`  | `paths$acc(account,"apihub")`
+| `paths$logOUT[account]`   | `paths$acc(account,"logOUT")`
+| `paths$logERR[account]`   | `paths$acc(account,"logERR")`
+| `paths$times[account]`    | `paths$acc(account,"times")`
+| --------------------------|-----------------------------
+| `Verdor$getPathsImgInd`   | `paths$imgs`
+| `Verdor$getPathSumInd`    | `paths$sums`
+| `paths$imgsBOAls`         | `paths$imgsLS("BOA")`
+| `paths$imgsBOAlsR`        | `paths$imgsR("BOA")`
+| `Verdor$getPathSumIndR`   | `paths$sumsR`
+| --------------------------|-----------------------------
+| `DatInt$getFileDatInt`    | `paths$int`
+| `DatInt$getFileDatIntR`   | `paths$intR`
+| `DatInt$getFileJardinesR` | `paths$jardiR2`
+
+
+

@@ -1,0 +1,23 @@
+"tit";"unit";"by";"bw";"col";"limInf";"limSup"
+"Tmed";"Average Temperature";"(º C)";10;2.5;"green";-15;50
+"Tmax";"Maximum Temperature";"(º C)";10;2.5;"red";-15;50
+"Tmin";"Minimum Temperature";"(º C)";10;2.5;"blue";-15;50
+"HRmed";"Average Relative Humidity";"(%)";20;5;"green";0;100
+"HRmax";"Maximum Relative Humidity";"(%)";20;5;"blue";0;100
+"HRmin";"Minimum Relative Humidity";"(%)";20;5;"dirt";0;100
+"RADmed";"Average Radiation";"($W/m^2$)";50;25;"dirt";0;400
+"RADmax";"Maximum Radiation";"($W/m^2$)";200;50;"red";0;1600
+"VVmed";"Average Wind Speed";"($m/s$)";2;0.5;"purple";0;10
+"VVmax";"Maximum Wind Speed";"($m/s$)";4;1;"pink";0;20
+"DVmed";"Wind Direction";"(º from N)";45;15;"magent";0;360
+"Prec";"Precipitation";"($mm$)";10;5;"blue";0;80
+"PtoRocio";"Dew Point";"(º C)";5;2.5;"purple";-10;25
+"DPVmed";"Vapour Pressure Deficit";"($kPa$)";1;0.25;"purple";0;5
+"ET0";"Reference Evapotranspiration";"($mm$)";3;1;"green";0;15
+"Consumo";"Water Consumption";"($mm$)";3;1;"purple";0;15
+"NDVI.scl_7_8_9.Min";"Minimum Masked Vegetation Index";"";0.1;0.05;"dirt";-0.3;1
+"NDVI.scl_7_8_9.Q1";"Q1 Masked Vegetation Index";"";0.1;0.05;"red";-0.3;1
+"NDVI.scl_7_8_9.Median";"Medium Masked Vegetation Index";"";0.1;0.05;"magent";-0.3;1
+"NDVI.scl_7_8_9.Mean";"Average Masked Vegetation Index";"";0.1;0.05;"green";-0.3;1
+"NDVI.scl_7_8_9.Q3";"Q3 Masked Vegetation Index";"";0.1;0.05;"purple";-0.3;1
+"NDVI.scl_7_8_9.Max";"Maximum Masked Vegetation Index";"";0.1;0.05;"blue";-0.3;1

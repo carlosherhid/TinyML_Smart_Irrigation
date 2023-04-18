@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "2183350",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2183350", "ZonasVerdes": 2, "Poligonos": 2, "MasGrande": 29.729129525949247, "MasPeque": 19.299654954811558, "Area": 49.028784480760805, "MasLargo": 22.523873945213346, "MasCorto": 19.336472055135271, "Perimetro": 41.860346000348613, "MaxNodos": 4, "MinNodos": 4, "Nodos": 8, "Abcisa": null, "Norte": null, "Contrato": null, "Actividad": null, "Ext/Int": null, "Prop/Inqui": null, "Direccion": null, "Indicacion": null, "ComplementoDireccion": null, "Localidad": null, "Barrio": null, "Contador": null, "FechaInstContador": null, "Telectura": null, "TipoContador": null, "ModeloContador": null, "Calibre": null, "TipoContrato": null, "Distancia": 6899.1655092512437, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "2183350" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 669594.409199999645352, 4204729.47749999910593 ], [ 669591.579599999822676, 4204728.534399999305606 ], [ 669589.185100000351667, 4204734.723999999463558 ], [ 669591.579699999652803, 4204735.923000000417233 ], [ 669594.409199999645352, 4204729.47749999910593 ] ] ], [ [ [ 669600.225499999709427, 4204715.48619999922812 ], [ 669596.2955, 4204714.228700000792742 ], [ 669593.466000000014901, 4204720.517000000923872 ], [ 669597.553199999965727, 4204722.088899999856949 ], [ 669600.225499999709427, 4204715.48619999922812 ] ] ] ] } }
+]
+}

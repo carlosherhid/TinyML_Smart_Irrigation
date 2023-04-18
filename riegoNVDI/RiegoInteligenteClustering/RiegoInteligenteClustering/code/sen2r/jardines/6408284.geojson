@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6408284",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2182175", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 11.303807547781616, "MasPeque": 11.303807547781616, "Area": 11.303807547781616, "MasLargo": 13.528976164827466, "MasCorto": 13.528976164827466, "Perimetro": 13.528976164827466, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 663898.8681, "Norte": 4205917.2982000001, "Contrato": "6408284", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "VINADER", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "SAN NICOLAS", "Contador": "I18BC065446I", "FechaInstContador": "2018-12-19", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "25", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 5111.6475980773739, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6408284" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 663898.91440000012517, 4205910.098600000143051 ], [ 663901.974399999715388, 4205909.977099999785423 ], [ 663902.189399999566376, 4205906.42710000090301 ], [ 663899.148000000044703, 4205906.242599999532104 ], [ 663898.91440000012517, 4205910.098600000143051 ] ] ] ] } }
+]
+}

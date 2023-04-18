@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6473494",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2185723", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 98.243401719955727, "MasPeque": 98.243401719955727, "Area": 98.243401719955727, "MasLargo": 46.150965994291852, "MasCorto": 46.150965994291852, "Perimetro": 46.150965994291852, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 657230.328, "Norte": 4199766.6505000005, "Contrato": "6473494", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "MAYOR", "Indicacion": "SN C-12-JA", "ComplementoDireccion": null, "Localidad": "SANGONERA LA VERDE", "Barrio": "SANGONERA LA VERDE", "Contador": "J19OA154665U", "FechaInstContador": "2019-09-05", "Telectura": "S", "TipoContador": "MECANICO CON PULSO", "ModeloContador": "S220", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 6742.0112878044101, "Principal": "MU62", "Alternativa1": "MO12", "Alternativa2": "CA42", "Alternativa3": "MU21", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 2, "Mosaico": "30SXG", "Mosaico2": "30SXH", "ID": "6473494" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 657221.924499999731779, 4199769.051300000399351 ], [ 657219.938400000333786, 4199774.42850000038743 ], [ 657236.457200000062585, 4199780.096300000324845 ], [ 657238.337000000290573, 4199774.89130000025034 ], [ 657221.924499999731779, 4199769.051300000399351 ] ] ] ] } }
+]
+}

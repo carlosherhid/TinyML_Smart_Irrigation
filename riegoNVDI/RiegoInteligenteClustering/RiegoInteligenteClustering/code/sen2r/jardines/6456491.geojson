@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6456491",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181241", "ZonasVerdes": 2, "Poligonos": 2, "MasGrande": 23.578566516400315, "MasPeque": 21.853665500646457, "Area": 45.432232017046772, "MasLargo": 23.366682988502149, "MasCorto": 23.218695258719933, "Perimetro": 46.585378247222081, "MaxNodos": 4, "MinNodos": 4, "Nodos": 8, "Abcisa": 664087.3808, "Norte": 4205246.6678, "Contrato": "6456491", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "CJ.LEON", "Indicacion": "SN C-2-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "EL CARMEN", "Contador": "12-134110", "FechaInstContador": "2013-05-08", "Telectura": "N", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 4455.610640579469, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6456491" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664070.83739999961108, 4205249.508199999108911 ], [ 664062.317499999888241, 4205252.22829999960959 ], [ 664063.137500000186265, 4205254.768200000748038 ], [ 664071.707399999722838, 4205251.938200000673532 ], [ 664070.83739999961108, 4205249.508199999108911 ] ] ], [ [ [ 664082.877399999648333, 4205245.8882 ], [ 664073.947399999946356, 4205248.758199999108911 ], [ 664074.757500000298023, 4205250.918299999088049 ], [ 664083.637400000356138, 4205248.1382 ], [ 664082.877399999648333, 4205245.8882 ] ] ] ] } }
+]
+}

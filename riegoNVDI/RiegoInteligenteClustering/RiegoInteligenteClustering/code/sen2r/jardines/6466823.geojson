@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6466823",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181464", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 128.88072599750012, "MasPeque": 128.88072599750012, "Area": 128.88072599750012, "MasLargo": 53.684006985130409, "MasCorto": 53.684006985130409, "Perimetro": 53.684006985130409, "MaxNodos": 3, "MinNodos": 3, "Nodos": 3, "Abcisa": 664861.2872, "Norte": 4206776.1753000002, "Contrato": "6466823", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "AV.VICTORIA", "Indicacion": "SN C-2-JA-5", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "LA FLOTA", "Contador": "D12FE126309F", "FechaInstContador": "2013-07-01", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 6051.5342626871752, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6466823" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664865.22759999986738, 4206777.778999999165535 ], [ 664884.417500000447035, 4206768.858899999409914 ], [ 664872.107400000095367, 4206761.148900000378489 ], [ 664865.22759999986738, 4206777.778999999165535 ] ] ] ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6439815",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2186750", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 152.18325801496394, "MasPeque": 152.18325801496394, "Area": 152.18325801496394, "MasLargo": 85.606764297463073, "MasCorto": 85.606764297463073, "Perimetro": 85.606764297463073, "MaxNodos": 7, "MinNodos": 7, "Nodos": 7, "Abcisa": 660128.7303000001, "Norte": 4202415.507, "Contrato": "6439815", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "ESCUELAS", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "SAN GINES", "Barrio": "SAN GINES", "Contador": "D12TD123865R", "FechaInstContador": "2013-01-26", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLODIS", "Calibre": "30", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 4097.6932168415387, "Principal": "MU62", "Alternativa1": "MO12", "Alternativa2": "MU21", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6439815" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 660110.944600000046194, 4202407.750399999320507 ], [ 660129.544599999673665, 4202411.270400000736117 ], [ 660131.364599999971688, 4202411.620400000363588 ], [ 660135.404400000348687, 4202390.150399999693036 ], [ 660131.614299999549985, 4202389.120400000363588 ], [ 660128.284599999897182, 4202407.040500000119209 ], [ 660111.73450000025332, 4202403.860500000417233 ], [ 660110.944600000046194, 4202407.750399999320507 ] ] ] ] } }
+]
+}

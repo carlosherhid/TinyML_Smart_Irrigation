@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6406280",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181931", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 179.23506663413718, "MasPeque": 179.23506663413718, "Area": 179.23506663413718, "MasLargo": 78.802341420186636, "MasCorto": 78.802341420186636, "Perimetro": 78.802341420186636, "MaxNodos": 7, "MinNodos": 7, "Nodos": 7, "Abcisa": 664244.4994, "Norte": 4206174.8108000001, "Contrato": "6406280", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "GV.ALFONSO X EL SABIO", "Indicacion": "SN C-3-JA", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "SAN MIGUEL", "Contador": "D14FE043794O", "FechaInstContador": "2015-02-25", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 5390.1107098670618, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6406280" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 664257.563799999654293, 4206173.3429000005126 ], [ 664289.169400000013411, 4206178.310900000855327 ], [ 664291.39780000038445, 4206178.667500000447035 ], [ 664291.669400000013411, 4206171.230900000780821 ], [ 664289.169400000013411, 4206171.190899999812245 ], [ 664283.229399999603629, 4206171.050899999216199 ], [ 664257.791500000283122, 4206170.136900000274181 ], [ 664257.563799999654293, 4206173.3429000005126 ] ] ] ] } }
+]
+}

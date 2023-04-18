@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6443006",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181660", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 113.15810052631423, "MasPeque": 113.15810052631423, "Area": 113.15810052631423, "MasLargo": 45.087990109441847, "MasCorto": 45.087990109441847, "Perimetro": 45.087990109441847, "MaxNodos": 7, "MinNodos": 7, "Nodos": 7, "Abcisa": 665328.0736, "Norte": 4206156.1797000002, "Contrato": "6443006", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "RIO MULA", "Indicacion": "SN C-2-JA-1", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "LA PAZ", "Contador": "I18BC034343J", "FechaInstContador": "2018-11-30", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "25", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 5536.2180516339831, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6443006" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 665319.049499999731779, 4206153.294600000604987 ], [ 665332.60950000025332, 4206154.54450000077486 ], [ 665328.979399999603629, 4206147.184399999678135 ], [ 665327.359299999661744, 4206145.134500000625849 ], [ 665325.979299999773502, 4206143.604499999433756 ], [ 665324.479299999773502, 4206142.714500000700355 ], [ 665319.919300000183284, 4206141.264499999582767 ], [ 665319.049499999731779, 4206153.294600000604987 ] ] ] ] } }
+]
+}

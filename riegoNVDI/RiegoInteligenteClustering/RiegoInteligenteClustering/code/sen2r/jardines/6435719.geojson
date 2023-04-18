@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6435719",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2183839", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 71.21028552018106, "MasPeque": 71.21028552018106, "Area": 71.21028552018106, "MasLargo": 58.887707338904207, "MasCorto": 58.887707338904207, "Perimetro": 58.887707338904207, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 663632.0664, "Norte": 4209819.5416000001, "Contrato": "6435719", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "RAMBLA", "Indicacion": "SN C-2-JA", "ComplementoDireccion": null, "Localidad": "CHURRA", "Barrio": "CHURRA", "Contador": "02-185452", "FechaInstContador": "2013-12-31", "Telectura": "N", "TipoContador": "ELECTRONICO", "ModeloContador": "CZ3000", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 9043.0667475250266, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6435719" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 663636.318199999630451, 4209819.538599999621511 ], [ 663634.738300000317395, 4209821.658600000664592 ], [ 663656.318400000222027, 4209837.538699999451637 ], [ 663657.902800000272691, 4209835.385600000619888 ], [ 663636.318199999630451, 4209819.538599999621511 ] ] ] ] } }
+]
+}

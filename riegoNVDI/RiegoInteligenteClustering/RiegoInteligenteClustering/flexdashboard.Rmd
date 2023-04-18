@@ -1,0 +1,290 @@
+---
+title: "Riego inteligente"
+output: 
+  flexdashboard::flex_dashboard:
+    
+    # orientation: columns # this is the default
+    orientation: rows
+    
+    # vertical_layout: fill # this is the default
+    vertical_layout: scroll
+    
+    # social: menu
+    
+    # source_code: embed
+    
+    # storyboard: true
+    
+runtime: shiny 
+---
+
+```{r setup, include=FALSE}
+# options(digits = 22, scipen = 22)
+library(flexdashboard)
+library(shiny)
+source(file.path("code","include.R"))
+dirs$data <<- "datosTFG"
+dflt$lan <<- "sp"
+# input <- list(
+#   tipo = "pols",
+#   localidad = "LOBOSILLO",
+#   contrato = "6373577",
+#   dia = as.Date("2021-05-15")
+# )
+```
+
+# Datos geográficos {data-icon="fa-map-marked-alt"}
+
+```{r}
+dg <- dflt$dg()
+```
+
+## Sidebar {.sidebar}
+
+### Tipo
+
+```{r}
+shiny::radioButtons("tipo", "", choiceValues = c("pols","ptos"),
+                    choiceNames = c("Zonas verdes (poligonos)", "Acometidas (puntos)"))
+```
+
+### Localidad
+
+```{r}
+shiny::checkboxGroupInput("localidad", "", unique(dg$Localidad))
+```
+
+## Row
+
+### Mapa {.no-title}
+
+```{r}
+output$mapa <- leaflet::renderLeaflet({
+  if (input$tipo == "pols")
+    DatGeo$plotMapa(dg, "Barrio", "Localidad", input$localidad)
+  else
+    DatGeo$plotMapa(sf::st_centroid(dg), "Barrio", "Localidad", input$localidad)
+})
+leaflet::leafletOutput("mapa")
+```
+
+## Row
+
+### Histograma de polígonos por parque
+
+```{r}
+val <- 50; x_lab <- "Número polígonos"
+DatInt$plotHist(dg, Poligonos, x_lab, sup = val)
+```
+
+> Sin contar `r dg %>% dplyr::filter(Poligonos >= val) %>% nrow()` jardines cuyo número de polígonos es mayor o igual que `r val`.
+
+### Tabla de recuentos de estaciones meteorológicas y mosaicos Sentinel-2 asociados
+
+```{r}
+# knitr::kables(list(
+knitr::kable(DatGeo$consultarDatGeo("tablaEstMet", dg = dg),
+             caption = "Recuento de estaciones meteorológicas asignadas a cada jardín")
+knitr::kable(DatGeo$consultarDatGeo("tablaEstMet2", dg = dg),
+             caption = "Recuento de estaciones principal vs. alternativa 1 asignadas a cada jardín")
+knitr::kable(DatGeo$consultarDatGeo("tablaMosSen2", dg = dg),
+             col.names = c("Mosaico","Recuento"),
+             caption = "Recuento de mosaicos de Sentinel-2 en los que se encuentra cada jardín")
+# ))
+```
+
+## Row
+
+### Histograma de tamaños totales de cada parque
+
+```{r}
+# val <- 12000; x_lab <- latex2exp::TeX("Área total del parque ($m^2$)")
+val <- 12000; x_lab <- "Área total del parque (m^2)"
+DatInt$plotHist(dg, Area, x_lab, sup = val)
+```
+
+> Sin contar `r dg %>% dplyr::filter(Area >= val) %>% nrow()` jardines cuya área es mayor o igual que `r val` $m^2$.
+
+### Histograma de distancias a las estaciones principales asociadas
+
+```{r}
+# val <- 10; x_lab <- latex2exp::TeX("Distancia del parque a su estación principal ($km$)")
+val <- 10; x_lab <- "Distancia del parque a su estación principal (km)"
+DatInt$plotHist(dg %>% dplyr::mutate(Distancia = Distancia / 1000), Distancia, x_lab)
+```
+
+# Disponibilidad de datos {data-icon="fa-chart-bar"}
+
+## Row {data-height=200}
+
+### Datos faltantes por estación meteorológica
+
+```{r}
+knitr::kable(DatAmb$consultarDatMet("tablaNA"))
+```
+
+### Contadores en Lecturas comparados con el de Contratos
+
+```{r}
+knitr::kable(Riego$consultarResumenContadores("tabla"))
+```
+
+## Row
+
+```{r}
+lecturasR <- Riego$leerResumenLecturas() %>%
+  dplyr::mutate_at(dplyr::vars(contains("Tiempo_")), lubridate::period_to_seconds) %>%
+  dplyr::mutate_at(dplyr::vars(contains("Tiempo_")), as.difftime, units = "secs")
+units(lecturasR$Tiempo_Min) <- "mins"
+units(lecturasR$Tiempo_Mean) <- "hours"
+units(lecturasR$Tiempo_Max) <- "days"
+lecturasR %<>%
+  dplyr::mutate_at(dplyr::vars(contains("Tiempo_")), as.double) %>%
+  dplyr::mutate_at(dplyr::vars(contains("Tiempo_")), round, 2)
+```
+
+### Fecha de primera lectura
+
+```{r}
+val <- as.Date("2017-09-30"); x_lab <- "primera telectura"
+DatInt$plotHist(lecturasR, Fecha_Min, x_lab, inf = val, .bw = "quarter")
+```
+
+> Sin contar `r lecturasR %>% dplyr::filter(Fecha_Min < val) %>% nrow()` jardines cuya primera telectura es del `r val`.
+
+### Fecha de última lectura
+
+```{r}
+val <- as.Date("2021-05-01"); x_lab <- "última telectura"
+DatInt$plotHist(lecturasR, Fecha_Max, x_lab, sup = val, .bw = "month")
+```
+
+> Sin contar `r lecturasR %>% dplyr::filter(Fecha_Min < val) %>% nrow()` jardines cuya última telectura es después de `r val`.
+
+## Row
+
+### Valores no nulos de NDVI enmascarados
+
+```{r}
+idvsR <- Verdor$leerResumenSumInd() %>%
+  dplyr::rename(N_NDVI = NDVI.scl_7_8_9.Mean_TotalNoNA) %>%
+  dplyr::filter(N_NDVI > 0)
+
+x_lab <- "Valores NDVI disponibles"
+DatInt$plotHist(idvsR, N_NDVI, x_lab)
+```
+
+### Observaciones completas
+
+```{r}
+datosR <- DatInt$leerResumenDatInt() %>%
+  dplyr::rename(N_Obs = Obs_CCs)
+
+x_lab <- "Observaciones completas disponibles"
+DatInt$plotHist(datosR, N_Obs, x_lab)
+```
+
+# Datos por contrato {data-icon="fa-chart-line"}
+
+## Sidebar {data-height=100}
+
+### Contrato
+
+```{r}
+contratos <- dflt$contratos("all")
+contratos <- dflt$contratos("ConLecturas")
+contratos <- dflt$contratos("ConImgs")
+contratos <- dflt$contratos("ConSums", mask = NA)
+contratos <- dflt$contratos("ConSums")
+contratos <- dflt$contratos("ConSeries")
+shiny::selectInput("contrato", "", contratos, "6373577")
+```
+
+### Estación
+
+```{r}
+estacion <- shiny::reactive(DatGeo$consultarDatGeo("listEstMet",input$contrato, dg = dg))
+output$estacion <- shiny::renderText(estacion()[1])
+shiny::textOutput("estacion")
+```
+
+### Día imágenes {.no-title}
+
+```{r}
+shiny::dateInput("dia", "", "2021-05-15",
+                 "2017-10-01", Sys.Date(), weekstart = 1, language = "es")
+```
+
+## Row
+
+```{r}
+datos <- shiny::reactive(
+  DatInt$leerSeries(input$contrato, ini = "2011-01-01") %>%
+    DatInt$reestructurarSeries()
+)
+```
+
+### Mapa {.no-title}
+
+```{r}
+# output$mymap <- shiny::renderText(paste("ID contrato:",input$contrato))
+# shiny::textOutput("mymap")
+
+output$mymap <- leaflet::renderLeaflet({
+  DatGeo$plotMapa(dg, "Contrato", "Contrato", input$contrato)
+})
+leaflet::leafletOutput("mymap", width = "100%", height = "100%")
+```
+
+### Balance hídrico
+
+```{r}
+output$bhPlot <- plotly::renderPlotly(DatInt$plotTS(datos(), "BH"))
+plotly::plotlyOutput("bhPlot")
+```
+
+### NDVI
+
+```{r}
+output$viPlot <- plotly::renderPlotly(DatInt$plotTS(datos(), "NDVI.scl_7_8_9.Mean"))
+plotly::plotlyOutput("viPlot")
+```
+
+## Row
+
+### Imagen RGB
+
+```{r}
+output$rgbImg <- shiny::renderPlot(
+  Verdor$plotImgInd(input$contrato, 'RGB', NA, format(input$dia, "%Y%m%d"), 3, dg))
+shiny::plotOutput("rgbImg")
+```
+
+### Mapa SCL
+
+```{r}
+output$sclImg <- shiny::renderPlot(
+  Verdor$plotImgInd(input$contrato, 'SCL', NA, format(input$dia, "%Y%m%d"), 3, dg))
+shiny::plotOutput("sclImg")
+```
+
+### Imagen NDVI
+
+```{r}
+output$ndviImg <- shiny::renderPlot(
+  Verdor$plotImgInd(input$contrato, 'NDVI', NA, format(input$dia, "%Y%m%d"), 3, dg))
+shiny::plotOutput("ndviImg")
+```
+
+### Imagen NDVI enmascarada
+
+```{r}
+output$ndviMaskImg <- shiny::renderPlot(
+  Verdor$plotImgInd(input$contrato, 'NDVI', 'scl_7_8_9', format(input$dia, "%Y%m%d"), 3, dg))
+shiny::plotOutput("ndviMaskImg")
+```
+
+
+
+
+

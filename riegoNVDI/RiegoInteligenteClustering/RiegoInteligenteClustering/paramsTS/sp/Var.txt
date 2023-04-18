@@ -1,0 +1,23 @@
+"tit";"unit";"by";"bw";"col";"limInf";"limSup"
+"Tmed";"Temperatura media";"(º C)";10;2.5;"green";-15;50
+"Tmax";"Temperatura máxima";"(º C)";10;2.5;"red";-15;50
+"Tmin";"Temperatura mínima";"(º C)";10;2.5;"blue";-15;50
+"HRmed";"Humedad Relativa media";"(%)";20;5;"green";0;100
+"HRmax";"Humedad Relativa máxima";"(%)";20;5;"blue";0;100
+"HRmin";"Humedad Relativa mínima";"(%)";20;5;"dirt";0;100
+"RADmed";"Radiación media";"($W/m^2$)";50;25;"dirt";0;400
+"RADmax";"Radiación máxima";"($W/m^2$)";200;50;"red";0;1600
+"VVmed";"Velocidad del Viento media";"($m/s$)";2;0.5;"purple";0;10
+"VVmax";"Velocidad del Viento máxima";"($m/s$)";4;1;"pink";0;20
+"DVmed";"Dirección del Viento";"(º desde N)";45;15;"magent";0;360
+"Prec";"Precipitaciones";"($mm$)";10;5;"blue";0;80
+"PtoRocio";"Punto de Rocío";"(º C)";5;2.5;"purple";-10;25
+"DPVmed";"Déficit de Presión del Vapor";"($kPa$)";1;0.25;"purple";0;5
+"ET0";"Evapotranspiración de referencia";"($mm$)";3;1;"green";0;15
+"Consumo";"Consumo de Agua";"($mm$)";3;1;"purple";0;15
+"NDVI.scl_7_8_9.Min";"Índice de Verdor enmascarado mínimo";"";0.1;0.05;"dirt";-0.3;1
+"NDVI.scl_7_8_9.Q1";"Índice de Verdor enmascarado Q1";"";0.1;0.05;"red";-0.3;1
+"NDVI.scl_7_8_9.Median";"Índice de Verdor enmascarado mediano";"";0.1;0.05;"magent";-0.3;1
+"NDVI.scl_7_8_9.Mean";"Índice de Verdor enmascarado medio";"";0.1;0.05;"green";-0.3;1
+"NDVI.scl_7_8_9.Q3";"Índice de Verdor enmascarado Q3";"";0.1;0.05;"purple";-0.3;1
+"NDVI.scl_7_8_9.Max";"Índice de Verdor enmascarado máximo";"";0.1;0.05;"blue";-0.3;1

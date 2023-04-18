@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6441173",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2181750", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 203.89130650414154, "MasPeque": 203.89130650414154, "Area": 203.89130650414154, "MasLargo": 66.5204870054325, "MasCorto": 66.5204870054325, "Perimetro": 66.5204870054325, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 663353.9718000001, "Norte": 4205585.1544000003, "Contrato": "6441173", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "ENTIERRO SARDINA", "Indicacion": "SN C-12-JA-9", "ComplementoDireccion": null, "Localidad": "MURCIA", "Barrio": "SAN ANTOLIN", "Contador": "D12FE130120B", "FechaInstContador": "2013-06-29", "Telectura": "S", "TipoContador": "MECANICO", "ModeloContador": "FLOSTAR M", "Calibre": "40", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 4826.1647690780856, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6441173" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 663352.041899999603629, 4205594.309000000357628 ], [ 663379.531999999657273, 4205599.889000000432134 ], [ 663374.651800000108778, 4205589.75899999961257 ], [ 663357.391800000332296, 4205586.308900000527501 ], [ 663352.041899999603629, 4205594.309000000357628 ] ] ] ] } }
+]
+}

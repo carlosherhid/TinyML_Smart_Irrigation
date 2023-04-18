@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6453067",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2120205", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 77.395738498307765, "MasPeque": 77.395738498307765, "Area": 77.395738498307765, "MasLargo": 43.61011800083368, "MasCorto": 43.61011800083368, "Perimetro": 43.61011800083368, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 663078.8734, "Norte": 4207149.3321000002, "Contrato": "6453067", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "AV.MIGUEL DE CERVANTES", "Indicacion": "SN-JA-1", "ComplementoDireccion": "JARDIN", "Localidad": "MURCIA", "Barrio": "EL RANERO", "Contador": "I20BB055009V", "FechaInstContador": "2021-01-11", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "20", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 6417.2025413660185, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6453067" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 663077.5318, 4207167.293099999427795 ], [ 663079.861800000071526, 4207168.21309999935329 ], [ 663085.531600000336766, 4207151.943099999800324 ], [ 663079.231499999761581, 4207150.073100000619888 ], [ 663077.5318, 4207167.293099999427795 ] ] ] ] } }
+]
+}

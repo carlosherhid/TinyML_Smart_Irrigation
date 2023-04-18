@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6443729",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2182960", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 338.40961680281907, "MasPeque": 338.40961680281907, "Area": 338.40961680281907, "MasLargo": 159.77436470541099, "MasCorto": 159.77436470541099, "Perimetro": 159.77436470541099, "MaxNodos": 7, "MinNodos": 7, "Nodos": 7, "Abcisa": 662646.8146, "Norte": 4202244.6744999997, "Contrato": "6443729", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "JOSE LUJAN", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "ALJUCER", "Barrio": "ALJUCER", "Contador": "D13TC094099M", "FechaInstContador": "2014-01-15", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "25", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 1943.9736348782101, "Principal": "MU62", "Alternativa1": "MO12", "Alternativa2": "MU21", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6443729" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 662636.939799999818206, 4202243.72580000013113 ], [ 662637.274699999950826, 4202240.934299999848008 ], [ 662592.388500000350177, 4202236.021299999207258 ], [ 662564.13910000026226, 4202232.559900000691414 ], [ 662563.692599999718368, 4202240.152699999511242 ], [ 662590.601999999955297, 4202242.050899999216199 ], [ 662590.825299999676645, 4202239.594499999657273 ], [ 662636.939799999818206, 4202243.72580000013113 ] ] ] ] } }
+]
+}

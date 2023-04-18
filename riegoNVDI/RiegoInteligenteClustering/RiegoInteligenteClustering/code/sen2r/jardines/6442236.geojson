@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6442236",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2184113", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 387.4462997643277, "MasPeque": 387.4462997643277, "Area": 387.4462997643277, "MasLargo": 81.807242720058241, "MasCorto": 81.807242720058241, "Perimetro": 81.807242720058241, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 667693.6968, "Norte": 4212131.8515999997, "Contrato": "6442236", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "SANTA ELENA", "Indicacion": "SN C-7-JA-2", "ComplementoDireccion": null, "Localidad": "EL ESPARRAGAL", "Barrio": "EL ESPARRAGAL", "Contador": "J20OA170432G", "FechaInstContador": "2020-12-28", "Telectura": "S", "TipoContador": "MECANICO CON PULSO", "ModeloContador": "S220", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 7877.3741385628618, "Principal": "MU21", "Alternativa1": "MU62", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6442236" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 667664.116499999538064, 4212133.285399999469519 ], [ 667691.010999999940395, 4212135.323200000450015 ], [ 667692.140599999576807, 4212120.320499999448657 ], [ 667667.616399999707937, 4212118.495400000363588 ], [ 667664.116499999538064, 4212133.285399999469519 ] ] ] ] } }
+]
+}

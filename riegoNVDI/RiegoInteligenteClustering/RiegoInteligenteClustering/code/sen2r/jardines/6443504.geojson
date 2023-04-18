@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6443504",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2184118", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 107.49253150168806, "MasPeque": 107.49253150168806, "Area": 107.49253150168806, "MasLargo": 43.732628060901305, "MasCorto": 43.732628060901305, "Perimetro": 43.732628060901305, "MaxNodos": 5, "MinNodos": 5, "Nodos": 5, "Abcisa": 668038.3115, "Norte": 4212115.342, "Contrato": "6443504", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "INFANTA DOÑA LEONOR", "Indicacion": "SN C-12-JA-5", "ComplementoDireccion": null, "Localidad": "EL ESPARRAGAL", "Barrio": "EL ESPARRAGAL", "Contador": "I18BA008731E", "FechaInstContador": "2018-01-22", "Telectura": "N", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 7510.061406656002, "Principal": "MU21", "Alternativa1": "MU62", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6443504" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 668048.427099999971688, 4212128.322300000116229 ], [ 668055.986999999731779, 4212119.782299999147654 ], [ 668053.29700000025332, 4212117.712300000712276 ], [ 668039.736899999901652, 4212116.8224 ], [ 668039.427000000141561, 4212119.6524 ], [ 668048.427099999971688, 4212128.322300000116229 ] ] ] ] } }
+]
+}

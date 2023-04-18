@@ -1,0 +1,379 @@
+---
+title: "Ejemplo de ejecución"
+author: "Paula Susana Gómez Bernal"
+date: "25/1/2022"
+output:
+  html_document:
+    df_print: paged
+    highlight: kate
+    number_sections: yes
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+    toc_depth: 4
+  pdf_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+
+
+# Configuración
+
+```{r}
+source(file.path("code","include.R"), encoding = "UTF-8")
+dflt$model <- "gbm"
+dflt$ini <- as.Date("2017-09-29")
+dflt$fin <- as.Date("2021-07-01")
+# dflt$fin <- as.Date("2021-06-04")
+dflt$noActuales <- dflt$fin - lubridate::as.period(dflt$faltantesL)
+dflt$tardias <- dflt$ini + lubridate::as.period("6 months")
+```
+
+```{r}
+sum.period <- function(...) {
+  v <- c(...)
+  lubridate::seconds_to_period(sum(lubridate::period_to_seconds(v)))
+}
+```
+```{r}
+funs <- list(
+  "Min" = ~min(.x, na.rm = T),
+  "Q1" = ~stats::quantile(.x, 0.25, na.rm = T),
+  "Median" = ~stats::median(.x, na.rm = T),
+  "Q3" = ~stats::quantile(.x, 0.75, na.rm = T),
+  "Max" = ~max(.x, na.rm = T),
+  "Sum" = ~sum(.x, na.rm = T),
+  "TotalNA" = ~sum(is.na(.x)),
+  "Total"    = ~dplyr::n()
+)
+```
+```{r}
+col2fil <- function(obj.df, id = "Fun", vr = NA) {
+  obj.df %>%
+    tidyr::pivot_longer(cols = everything(),
+                        names_sep = if(is.na(vr)) "_(?![^_]*_)",
+                        names_to = c(if(is.na(vr))".value",id),
+                        values_to = if (!is.na(vr)) vr) %>%
+    data.table::setDT()
+}
+```
+
+
+
+# Datos Geográficos
+
+```{r}
+system.time( DatGeo$initJardines() )
+```
+
+# Datos Ambientales
+
+```{r}
+system.time( DatAmb$initDatMet() )
+system.time( DatAmb$initET0() )
+# system.time( DatAmb$initDatAmb() )
+```
+
+# Datos de Riego
+
+```{r}
+Riego$lsFilesAgua()
+# Hay 38
+Riego$consultarFilesAgua("fechasFalt") %>% nrow()
+```
+
+```{r}
+system.time( Riego$downloadLecturas() )
+# Riego$cleanLecturas()
+system.time( Riego$downloadConsumos() )
+Riego$cleanConsumos()
+# system.time( Riego$downloadRiego() )
+# Riego$cleanRiego()
+```
+
+> Pausa. Error detectado!
+
+```{r}
+consumo <- Riego$leerConsumos(6559630)
+dup <- consumo %>% dplyr::count(Fecha) %>% dplyr::filter(n > 1L)
+consumo %>% dplyr::filter(Fecha %in% dup$Fecha)
+```
+
+¿Hay ahora contratos con varios contadores simultaneos?
+
+```{r}
+lecturas <- Riego$leerLecturas(6559630)
+lecturas %>% dplyr::filter(as.Date(Fecha) %in% dup$Fecha) %>% head(n=40)
+```
+
+Arreglamos este fichero, pero **hay que cambiar el cálculo de los consumos**...
+
+```{r}
+consumo %<>% dplyr::group_by(Fecha) %>%
+  dplyr::summarise_all(sum) %>% dplyr::ungroup()
+fichero <- paths$conss(6559630)
+data.table::fwrite(consumo, fichero, sep = ";", na = "NA")
+```
+
+> Seguimos!
+
+```{r}
+system.time( {
+  msg("Leyendo y resumiendo lecturas de contadores...")
+  lecturas <- listDF2DF(Riego$readLecturas(expl2 = T))
+  Riego$resumirContadores(lecturas = lecturas)
+  Riego$resumirLecturas(lecturas = lecturas)
+  msg("Leyendo y resumiendo consumos de agua...")
+  consumos <- listDF2DF(Riego$readConsumos())
+  Riego$resumirConsumos(consumos = consumos)
+} )
+```
+
+```{r}
+# Para el TFG sale 47
+Riego$consultarResumenContadores("sinLecturas") %>% nrow()
+# Para el TFG sale 75
+Riego$consultarResumenContadores("variosContadores") %>% nrow()
+```
+```{r}
+# Para el TFG sale 12
+Riego$consultarResumenLecturas("tardias") %>% nrow()
+# Para el TFG sale 17
+Riego$consultarResumenLecturas("noActuales") %>% nrow()
+# Para el TFG sale 59
+Riego$consultarResumenLecturas("faltantes") %>% nrow()
+# Para el TFG sale 126
+Riego$consultarResumenLecturas("negativo") %>% nrow()
+```
+```{r}
+# Para el TFG sale 52 (de los 75...)
+Riego$consultarResumenConsumos("faltantes", 0) %>% nrow()
+# Para el TFG sale 30
+Riego$consultarResumenConsumos("negativo") %>% nrow()
+# Para el TFG sale 10
+Riego$consultarResumenConsumos("cero") %>% nrow()
+```
+
+# Datos de Verdor
+
+```{r}
+Verdor$lsDirsImgs()
+# Para el TFG, Todos los 266
+Verdor$consultarDirsImgs("conCarpeta") %>% nrow()
+# Sin embargo, 11
+Verdor$consultarDirsImgs("sinImagenes") %>% nrow()
+```
+
+```{r}
+Verdor$lsFilesImgsInd(ind="BOA")
+# Para el TFG sale 137, 174
+Verdor$consultarFilesImgsInd("total",ind="BOA")
+# Para el TFG sale 1
+Verdor$consultarFilesImgsInd("tilesFalt",ind="BOA")
+```
+
+```{r}
+inds = dflt$ind
+masks = unique(c(NA, dflt$mask))
+aggs = dflt$agg
+# Verdor$downloadImgInd()
+# Verdor$updateSumInd(initRes = T)
+system.time( Verdor$downloadSumInd(inds,masks,dflt$contratos("conImgs"),aggs) )
+Verdor$cleanSumInd(dflt$contratos("conImgs"),inds, masks)
+```
+
+```{r}
+system.time( {
+  lapply(inds, function(ind) {
+    lapply(masks, function(mask) {
+      msg("Leyendo y resumiendo summaries de ",ind,".",mask,"...")
+      idvs = listDF2DF(Verdor$readSumInd(NULL, ind, mask))
+      lapply(aggs, function(agg) {
+        Verdor$resumirSumInd(idvs = idvs, agg = agg)
+      })
+    })
+  }) %>% invisible()
+} )
+```
+
+```{r}
+# Para el TFG sale 20
+Verdor$consultarResumenSumInd("sinSerie", mask = NA) %>% nrow()
+# Para el TFG sale 98
+Verdor$consultarResumenSumInd("sinSerie", mask = dflt$mask) %>% nrow()
+# Para el TFG sale 7
+Verdor$consultarResumenSumInd("sinVegetacion", mask = dflt$mask) %>% nrow()
+```
+```{r}
+# # Para el TFG sale
+# # Min     133
+# # Q1      133
+# # Median  133
+# # Q3      133
+# # Max     134
+# # Sum     31287
+# # TotalNA 0
+# # Total   235
+# Verdor$leerResumenSumInd(mask = NA) %>%
+#   dplyr::select(N_NDVI = NDVI.NA.Mean_TotalNoNA) %>%
+#   dplyr::filter(N_NDVI > 0) %>%
+#   dplyr::summarise_if(is.numeric, funs) %>%
+#   col2fil(vr = "N_NDVI") %>% print()
+```
+```{r}
+# Para el TFG sale
+# Min     58
+# Q1      86
+# Median  87
+# Q3      90
+# Max     99
+# Sum     13692
+# TotalNA 0
+# Total   157
+Verdor$leerResumenSumInd(mask = dflt$mask) %>%
+  dplyr::select(N_NDVI = NDVI.scl_7_8_9.Mean_TotalNoNA) %>%
+  dplyr::filter(N_NDVI > 0) %>%
+  dplyr::summarise_if(is.numeric, funs) %>%
+  col2fil(vr = "N_NDVI") %>% print()
+```
+
+# Datos Integrados
+
+```{r}
+system.time( DatInt$initDatInt(masks = dflt$mask, ints = dflt$int, initRes = T) )
+```
+```{r}
+# # Para el TFG sale
+# # Min     22    22    0
+# # Q1      128   128   0
+# # Median  128   128   0
+# # Q3      128   128   0
+# # Max     130   130   44
+# # Sum     29702 29616 86
+# # TotalNA 0     0     0
+# # Total   235   235   235
+# DatInt$leerResumenDatInt(mask = NA) %>%
+#   dplyr::summarise_if(is.numeric, funs) %>%
+#   col2fil() %>% print()
+```
+```{r}
+# Para el TFG sale
+# Min     22    6     0
+# Q1      128   51    71
+# Median  128   53    75
+# Q3      128   57    77
+# Max     130   69    102
+# Sum     19768 8322  11446
+# TotalNA 0     0     0
+# Total   157   157   157
+DatInt$leerResumenDatInt(mask = dflt$mask) %>%
+  dplyr::summarise_if(is.numeric, funs) %>%
+  col2fil() %>% print()
+```
+
+# Clustering y Regresión
+
+```{r}
+system.time( Clust$initClusts(series = dflt$serie,
+                              pkgs = dflt$pkg, disss = dflt$disss[1]) )
+```
+
+```{r}
+system.time( ML$initResultsNone(masks = dflt$mask, ints = dflt$int,
+                                models = dflt$model, byPCA = 0L) )
+```
+
+> Pausa. Error detectado!
+
+Esto ya pasaba antes, pero con más frecuencia (pues había menos observaciones para los contratos).
+Teniendo en cuenta que usamos validación cruzada de 10 pliegues con 10 repeticiones como técnica de remuestreo y que el menor valor que toma `n.trees` es 50 esto debe ocurrir cuando tenemos menos de 55 observaciones...
+
+```{r}
+DatInt$leerResumenDatInt() %>%
+  dplyr::filter(Obs_CCs < 55)
+```
+
+Por tanto, **hay que revisar** el significado de **cada hiperparámetro de los modelos**, ver sus posibles valores, y determinar cuáles probamos (parámetro `tuneGrid` de `caret::train()`)...
+
+> Seguimos!
+
+```{r}
+system.time( Clust$initResultsClusts(models = dflt$model, series = dflt$serie,
+                                     pkgs = dflt$pkg, disss = dflt$disss[1]) )
+```
+
+```{r}
+attr(res_None <- ML$leerResultsNone(pca = 0L), "param")
+(res_None %<>%
+    dplyr::rename(Time = elapsed) %>%
+    dplyr::mutate_at("Time", lubridate::seconds_to_period) %>%
+    dplyr::mutate_if(is.numeric, round, 4) %>%
+    dplyr::mutate(Scenario = ifelse(n == 1L, 1L, 2L), .before = n) %>%
+    dplyr::select(!c(PCA,CV,user,system))) %>%
+  dplyr::select(!c(MAE,MAPE,MSE,RMSE))
+# escribirTablaLatex(res_None, "res12", F)
+```
+
+```{r}
+# Tiempo total de ML$initResultsNone(...)
+sum.period(res_None$Time)
+```
+```{r}
+attr(res_EUCL <- Clust$leerResultsClust(), "param")
+(res_EUCL %<>%
+    dplyr::rename(Time = elapsed) %>%
+    dplyr::mutate_at("Time", lubridate::seconds_to_period) %>%
+    dplyr::mutate_if(is.numeric, round, 4) %>%
+    dplyr::select(!c(PCA,CV,user,system))) %>%
+  dplyr::select(!c(MAE,MAPE,MSE,RMSE))
+```
+
+```{r}
+# Tiempo que habríamos tardado si hubiéramos repetido casos
+sum.period(res_EUCL$Time)
+```
+
+```{r}
+(best_EUCL <- res_EUCL %>%
+    dplyr::slice_min(CVRMSE) %>%
+    dplyr::mutate_if(is.numeric, round, 4)) %>%
+  dplyr::select(!c(MAE,MAPE,MSE,RMSE))
+# escribirTablaLatex(best_EUCL, "TSclust", F)
+```
+```{r}
+(best_None_EUCL <- dplyr::bind_rows(
+    res_None %>% dplyr::select(!Scenario) %>%
+      dplyr::mutate(Diss = "None", .before = n),
+    best_EUCL %>%
+      dplyr::mutate(Diss = "EUCL", .before = n))) %>%
+  dplyr::arrange(CVRMSE) %>%
+  dplyr::select(!c(MAE,MAPE,MSE,RMSE))
+```
+```{r}
+attr(res <- ML$leerResults(pca = 0L), "param")
+res %<>%
+  dplyr::rename(Time = elapsed) %>%
+  dplyr::mutate_at("Time", lubridate::seconds_to_period) %>%
+  dplyr::select(!c(PCA,CV,user,system))
+```
+
+```{r}
+# Tiempo total de ML$initResultsNone(...) + Clust$initResultsClusts(...)
+sum.period(res$Time)
+```
+
+```{r}
+# Tiempo total de Clust$initResultsClusts(...)
+contratos <- dflt$contratos("ConSeries", dflt$ind, dflt$mask, dflt$agg)
+res %<>% dplyr::filter(!Group %in% contratos,
+                       Group != paste0(contratos, collapse = "_"))
+sum.period(res$Time)
+```
+
+
+

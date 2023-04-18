@@ -1,0 +1,9 @@
+"tit";"unit";"by";"col";"limInf";"limSup"
+"T";"Temperatura";"(º C)";10;"red";-15;50
+"HR";"Humedad Relativa";"(%)";20;"blue";0;100
+"RAD";"Radiación";"($W/m^2$)";200;"dirt";0;1600
+"VV";"Velocidad del Viento";"($m/s$)";4;"pink";0;20
+"DV";"Dirección del Viento";"(º desde N)";45;"magent";0;360
+"BH";"Balance hídrico";"($mm$)";10;"blue";0;80
+"DPV";"Déficit de Presión del Vapor";"($kPa$)";1;"purple";0;5
+"NDVI.scl_7_8_9";"Índice de verdor";"";0.1;"green";-0.3;1

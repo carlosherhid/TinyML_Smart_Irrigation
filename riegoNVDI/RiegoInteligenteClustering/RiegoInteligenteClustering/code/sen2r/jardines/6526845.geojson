@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6526845",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2184190", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 232.79881867393851, "MasPeque": 232.79881867393851, "Area": 232.79881867393851, "MasLargo": 62.236087283515573, "MasCorto": 62.236087283515573, "Perimetro": 62.236087283515573, "MaxNodos": 4, "MinNodos": 4, "Nodos": 4, "Abcisa": 667256.8376, "Norte": 4202379.4537000004, "Contrato": "6526845", "Actividad": "VIVIENDAS", "Ext/Int": "E", "Prop/Inqui": "P", "Direccion": "INFANTA ELENA", "Indicacion": "SN C-3-JA", "ComplementoDireccion": null, "Localidad": "GARRES Y LAGES", "Barrio": "GARRES Y LAGES", "Contador": "D11TA835626D", "FechaInstContador": "2014-01-14", "Telectura": "S", "TipoContador": "RADIO FRECUENCIA", "ModeloContador": "FLODIS -B-", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 3705.5731546074226, "Principal": "MU62", "Alternativa1": "MU21", "Alternativa2": "MO12", "Alternativa3": "CA42", "Alternativa4": "CA91", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXH", "Mosaico2": "30SXH", "ID": "6526845" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 667267.252299999818206, 4202398.455900000408292 ], [ 667275.624800000339746, 4202389.850600000470877 ], [ 667262.019199999980628, 4202376.012900000438094 ], [ 667254.22829999960959, 4202387.059900000691414 ], [ 667267.252299999818206, 4202398.455900000408292 ] ] ] ] } }
+]
+}

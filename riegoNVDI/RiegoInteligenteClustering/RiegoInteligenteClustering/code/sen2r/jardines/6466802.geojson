@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "6466802",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25830" } },
+"features": [
+{ "type": "Feature", "properties": { "Acometida": "2184516", "ZonasVerdes": 1, "Poligonos": 1, "MasGrande": 37.389411100884899, "MasPeque": 37.389411100884899, "Area": 37.389411100884899, "MasLargo": 29.492730626182972, "MasCorto": 29.492730626182972, "Perimetro": 29.492730626182972, "MaxNodos": 3, "MinNodos": 3, "Nodos": 3, "Abcisa": 669221.3656, "Norte": 4187371.7606000002, "Contrato": "6466802", "Actividad": "DEPENDENCIA MUNICIPAL", "Ext/Int": "E", "Prop/Inqui": "C", "Direccion": "PL.NUESTRA SRA. DE LAS MARAVILLAS", "Indicacion": "SN C-1-JA", "ComplementoDireccion": null, "Localidad": "LOS MARTINEZ DEL PUERTO", "Barrio": "LOS MARTINEZ DEL PUERTO", "Contador": "D14TA095290I", "FechaInstContador": "2014-11-15", "Telectura": "N", "TipoContador": "MECANICO", "ModeloContador": "FLODIS", "Calibre": "15", "TipoContrato": "ALTA AYUNTAMIENTO LOCALES", "Distancia": 8976.9389951732282, "Principal": "CA42", "Alternativa1": "MU62", "Alternativa2": "CA91", "Alternativa3": "MU21", "Alternativa4": "MO12", "MinMosaicos": 1, "MaxMosaicos": 1, "Mosaico": "30SXG", "Mosaico2": "30SXG", "ID": "6466802" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 669204.6102, 4187357.609300000593066 ], [ 669212.869099999777973, 4187360.841 ], [ 669215.883500000461936, 4187352.966199999675155 ], [ 669204.6102, 4187357.609300000593066 ] ] ] ] } }
+]
+}
