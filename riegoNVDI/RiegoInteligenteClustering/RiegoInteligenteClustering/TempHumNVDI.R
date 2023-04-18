@@ -410,7 +410,7 @@ for(contrato in contrato_MU62$Contrato) {
   #añadimos las dos nuevas columnas a nuestro dataset
   x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #Rellenamos con NA cuando no hay valores de NVDI
   x <- x %>% dplyr::select(NDVI.scl_7_8_9.Mean)
-  TH_MU62$media <- x
+  TH_MU62$media <- x$NDVI.scl_7_8_9.Mean
   anomalia <- list()
   #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
   for(med in x$NDVI.scl_7_8_9.Mean){
@@ -437,6 +437,14 @@ for(contrato in contrato_MU62$Contrato) {
   
 }
 #Calcular columna con moda de anomalías para cada fecha
-#seleccionamos las columnas que empiezan por anomaly
-anomalys_df <- dplyr::select(TH_MU62,contains("Anomaly"))
+#seleccionamos las columnas que empiezan spor anomaly
+anomalies_df <- dplyr::select(TH_MU62,contains("Anomaly"))
 
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
+NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+
+#TH_MU62$anomaliesAgg <-ONES / (ONES + ZEROS)
+TH_MU62$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
+TH_MU62$anomaliesAgg2 <-ONES / (ONES+ZEROS)
+write.table(x = TH_MU62, "anomaliesMU62.csv", row.names = F, sep=";")
