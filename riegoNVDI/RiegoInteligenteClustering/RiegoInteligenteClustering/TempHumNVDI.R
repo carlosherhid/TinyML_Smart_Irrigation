@@ -255,6 +255,7 @@ NAS = rowSums(is.na(anomalies_df))          # numero de NAs
 #TH_CA42$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_CA42$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_CA42$anomaliesAgg2 <-ONES / (ONES+ZEROS)
+TH_CA42$n_mediciones <- (ONES+ZEROS)
 write.table(x = TH_CA42, "anomaliesCA42.csv", row.names = F, sep=";")
 ################################################
 # Dataset Estación CA91
@@ -315,6 +316,7 @@ NAS = rowSums(is.na(anomalies_df))          # numero de NAs
 #TH_CA91$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_CA91$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_CA91$anomaliesAgg2 <-ONES / (ONES+ZEROS)
+TH_CA91$n_mediciones <- (ONES+ZEROS)
 write.table(x = TH_CA91, "anomaliesCA91.csv", row.names = F, sep=";")
 ################################################
 # Dataset Estación MO12
@@ -375,6 +377,7 @@ NAS = rowSums(is.na(anomalies_df))          # numero de NAs
 #TH_MO12$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_MO12$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_MO12$anomaliesAgg2 <-ONES / (ONES+ZEROS)
+TH_MO12$n_mediciones <- (ONES+ZEROS)
 write.table(x = TH_MO12, "anomaliesMO12.csv", row.names = F, sep=";")
 ################################################
 # Dataset Estación MU21
@@ -435,6 +438,7 @@ NAS = rowSums(is.na(anomalies_df))          # numero de NAs
 #TH_MU21$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_MU21$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_MU21$anomaliesAgg2 <-ONES / (ONES+ZEROS)
+TH_MU21$n_mediciones <- (ONES+ZEROS)
 write.table(x = TH_MU21, "anomaliesMU21.csv", row.names = F, sep=";")
 ################################################
 # Dataset Estación MU62
@@ -495,4 +499,5 @@ NAS = rowSums(is.na(anomalies_df))          # numero de NAs
 #TH_MU62$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_MU62$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_MU62$anomaliesAgg2 <-ONES / (ONES+ZEROS)
+TH_MU62$n_mediciones <- (ONES+ZEROS)
 write.table(x = TH_MU62, "anomaliesMU62.csv", row.names = F, sep=";")

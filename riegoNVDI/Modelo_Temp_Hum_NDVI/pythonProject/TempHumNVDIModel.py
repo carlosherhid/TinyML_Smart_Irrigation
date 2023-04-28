@@ -6,17 +6,23 @@ import numpy as np
 
 
 # Leemos los datos de temperatura, anomalías, NDVI y humedad de las 5 estaciones meteorológicas
-datos_CA42  = pd.read_csv('anomaliesCA42.csv')
+datos_CA42  = pd.read_csv('anomaliesCA42.csv', sep=';')
 datos_CA42 = datos_CA42.dropna(subset=['anomaliesAgg']) # Eliminamos las filas que contienen valores NaN en anomaliesAgg
-datos_CA91  = pd.read_csv('anomaliesCA91.csv')
-datos_CA91 = datos_CA91.dropna(subset=['anomaliesAgg']) # Eliminamos las filas que contienen valores NaN en anomaliesAgg
-datos_MO12  = pd.read_csv('anomaliesMO12.csv')
+datos_CA91  = pd.read_csv('anomaliesCA91.csv',sep=';')
+datos_CA91 = datos_CA91.dropna(subset=['anomaliesAgg'],) # Eliminamos las filas que contienen valores NaN en anomaliesAgg
+datos_MO12  = pd.read_csv('anomaliesMO12.csv',sep=';')
 datos_MO12 = datos_MO12.dropna(subset=['anomaliesAgg']) # Eliminamos las filas que contienen valores NaN en anomaliesAgg
-datos_MU21  = pd.read_csv('anomaliesMU21.csv')
+datos_MU21  = pd.read_csv('anomaliesMU21.csv',sep=';')
 datos_MU21 = datos_MU21.dropna(subset=['anomaliesAgg']) # Eliminamos las filas que contienen valores NaN en anomaliesAgg
-datos_MU62  = pd.read_csv('anomaliesMU62.csv')
+datos_MU62  = pd.read_csv('anomaliesMU62.csv',sep=';')
 datos_MU62 = datos_MU62.dropna(subset=['anomaliesAgg']) # Eliminamos las filas que contienen valores NaN en anomaliesAgg
 
+# Nos quedamos solo con las filas que tengan más de 10 mediciones de NDVI para detectar anomalías
+datos_MU21 = datos_MU21.loc[datos_MU21['n_mediciones'] > 10]
+datos_MU62 = datos_MU62.loc[datos_MU62['n_mediciones'] > 10]
+datos_CA91 = datos_CA91.loc[datos_CA91['n_mediciones'] > 10]
+datos_CA42 = datos_CA42.loc[datos_CA42['n_mediciones'] > 10]
+datos_MO12 = datos_MO12.loc[datos_MO12['n_mediciones'] > 10]
 pd.set_option('max_columns', 99) # para poder ver todas las columnas
 #print(datos_CA42.head(5))# Imprimimos las 5 primeras filas del dataframe para comprobar que está bien
 #print(datos_CA42.describe()) # imprimimos un resumen de cada una de las columnas
@@ -44,10 +50,10 @@ print('Anomalías MU21',labels_MU21)
 names_MU21  = list(datos_MU21.columns) # Guardamos los nombres de las columnas
 features_MU21  = np.array(datos_MU21[['tmed', 'hrmed']]) # temperatura y humedad, caracteristicas usadas como input del modelo
 #MU62
-labels_MU62 = np.array(datos_CA42['anomaliesAgg']) # índice de anomalías por fecha, valor que queremos predecir
+labels_MU62 = np.array(datos_MU62['anomaliesAgg']) # índice de anomalías por fecha, valor que queremos predecir
 print('Anomalías MU62',labels_MU62)
-names_MU62  = list(datos_CA42.columns) # Guardamos los nombres de las columnas
-features_MU62  = np.array(datos_CA42[['tmed', 'hrmed']]) # temperatura y humedad, caracteristicas usadas como input del modelo
+names_MU62  = list(datos_MU62.columns) # Guardamos los nombres de las columnas
+features_MU62  = np.array(datos_MU62[['tmed', 'hrmed']]) # temperatura y humedad, caracteristicas usadas como input del modelo
 #print(features_CA42)
 #print(names_CA42)
 #print(labels_CA42)
