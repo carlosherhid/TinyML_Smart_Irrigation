@@ -24,5 +24,5 @@ new <- na.omit(new)
 h <- ddply(new, "fecha",colwise(mean))
 #Nos quedamos solo con las fechas para las que tenemos datos de NVDI
 h1 <- h %>%
-  dplyr::filter(fecha >= ini) %>%
-  dplyr::filter(fecha <= fin)
+  dplyr::filter(fecha >= ini_mediciones) %>%
+  dplyr::filter(fecha <= fin_mediciones)

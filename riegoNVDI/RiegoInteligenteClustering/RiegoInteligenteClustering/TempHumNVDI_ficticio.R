@@ -46,10 +46,11 @@ ccontrato <-
 ################################################
 #Ponemos valores aleatorios de temperatura y humedad, ficticios
 ################################################
-set.seed(0717)
-Humidity <- rbinom(nrow(Date), 30, 0.5)
-Temperature <- rbinom(nrow(Date), 40, 0.5)
-TempHumNDVI <- cbind(Date, Humidity, Temperature)
+#set.seed(0717)
+#Humidity <- rbinom(nrow(Date), 30, 0.5)
+#Temperature <- rbinom(nrow(Date), 40, 0.5)
+#TempHumNDVI <- cbind(Date, Humidity, Temperature)
+TempHumNDVI <- cbind(Date)
 #Para cada uno de los parques vamos añadiendo al dataset la media de NVDI para ese día y si presenta anomalía o no con el formato:
 #NVDI_mean_numeroContrato 
 #Anomalia_numeroContrato
@@ -59,7 +60,7 @@ for(contrato in contratos) {
   
   
   #Creamos las anomalias de forma aleatoria por ahora
-  anomalia <- rbinom(nrow(Date), 1, 0.5)
+  #anomalia <- rbinom(nrow(Date), 1, 0.5)
   #Obtenemos las medias de NVDI de ese parque
   media <- 
     listDF2DF(S) %>%
@@ -68,13 +69,13 @@ for(contrato in contratos) {
   #añadimos las dos nuevas columnas a nuestro dataset
   if(nrow(media)==nrow(Date)){ #Quitando los contratos que tengan las medias de NVDI mal añadidas (algunos tienen menos columnas de las necesarias, sin valores de NA)
     TempHumNDVI$media <- media
-    TempHumNDVI$anomalia <- anomalia
+    # TempHumNDVI$anomalia <- anomalia
     #Para renombrar correctamente las columnas añadidas
     columna_media <- paste("NVDI_mean_",contrato,sep = "")
-    columna_anomalia <- paste("Anomaly_", contrato,sep = "")
+    #columna_anomalia <- paste("Anomaly_", contrato,sep = "")
     #las renombramos
     names(TempHumNDVI)[names(TempHumNDVI) == "media"] <- columna_media
-    names(TempHumNDVI)[names(TempHumNDVI) == "anomalia"] <- columna_anomalia
+    #names(TempHumNDVI)[names(TempHumNDVI) == "anomalia"] <- columna_anomalia
   }
   else{
     n_contratos_erroneos=n_contratos_erroneos+1
@@ -82,3 +83,4 @@ for(contrato in contratos) {
   
   
 }
+write.table(x = TempHumNDVI, "NDVI_contrato_por_fecha.csv", row.names = F, sep=";")
