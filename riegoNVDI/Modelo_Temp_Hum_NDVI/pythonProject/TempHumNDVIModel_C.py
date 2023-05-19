@@ -104,7 +104,7 @@ y_pred = rf.predict(X_test)
 #y_pred = regressor.predict(X_test)
 
 # Rescale the predicted and test values to their original scale
-y_pred = scalerY.inverse_transform(y_pred.reshape(-1, 1)).flatten()
+#y_pred = scalerY.inverse_transform(y_pred.reshape(-1, 1)).flatten()
 # Rescale the predicted and test values to their original scale
 y_pred = scalerY.inverse_transform(y_pred.reshape(-1, 1)).flatten()
 # Calculate RMSE and CVRMSE for the test set
