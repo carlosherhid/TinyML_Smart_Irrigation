@@ -1,6 +1,9 @@
+import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
+import tensorflow as tf
+from tensorflow import keras
 
+# 1. Preparar los datos de entrenamiento y prueba
 # Leemos los datos de temperatura, anomalías, NDVI y humedad de las 5 estaciones meteorológicas
 datos_CA42 = pd.read_csv('anomaliesCA42.csv', sep=';')
 datos_CA42 = datos_CA42.dropna(
@@ -64,8 +67,8 @@ import numpy as np
 
 # Split the data into input features and output variable
 X = df[['tmed', 'hrmed', 'temp1', 'temp2', 'temp3', 'temp4', 'temp5', 'temp6', 'temp7', 'temp8', 'temp9', 'temp10',
-     'hum1', 'hum2', 'hum3', 'hum4', 'hum5', 'hum6', 'hum7', 'hum8', 'hum9', 'hum10', 'mean_temp_last10',
-     'mean_hum_last10','n_mediciones']]
+        'hum1', 'hum2', 'hum3', 'hum4', 'hum5', 'hum6', 'hum7', 'hum8', 'hum9', 'hum10', 'mean_temp_last10',
+        'mean_hum_last10', 'n_mediciones']]
 y = df['anomaliesAgg3']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
@@ -77,54 +80,59 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 y_train_scaled = scalerY.fit_transform(y_train.to_numpy().reshape(-1, 1)).ravel()
-#y_test_scaled = scalerY.transform(y_test.to_numpy().reshape(-1, 1)).ravel()
+y_test_scaled = scalerY.transform(y_test.to_numpy().reshape(-1, 1)).ravel()
+# x_train = X_train.astype('float32') / 255.0
+# x_test = X_test.astype('float32') / 255.0
 
+# 2. Definir la arquitectura del modelo de redes neuronales
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=[X_train.shape[1]]),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')
+])
 
-# Realizamos el entrenamiento usando un modelo de regresión de random forest de skicit-learn
-# Instanciamos el modelo con 1000 árboles de decisión
+# 3. Compilar y entrenar el modelo
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
 
-rf = RandomForestRegressor(n_estimators=1000, random_state=42)
+model.fit(X_train, y_train, epochs=5, batch_size=32, verbose=1)
 
-# Entrenamos el modelo con los datos de training
-rf.fit(X_train, y_train_scaled)
+# 4. Guardar el modelo entrenado
+model.save('modelo_entrenado.h5')
 
+# 5. Convertir el modelo a TensorFlow Lite con cuantización
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+tflite_model = converter.convert()
 
-# Realizamos predicciones usando el modelo entrenado y los datos de test
-y_pred = rf.predict(X_test)
+# 6. Guardar el modelo cuantizado
+with open('modelo_cuantizado.tflite', 'wb') as f:
+    f.write(tflite_model)
 
-# Train the linear regression model
-#regressor = LinearRegression()
-#regressor.fit(X_train, y_train_scaled)
+# 7. Cargar el modelo cuantizado de TensorFlow Lite
+interpreter = tf.lite.Interpreter(model_path='modelo_cuantizado.tflite')
+interpreter.allocate_tensors()
 
-# Predict the output variable for the test set
-#y_pred = regressor.predict(X_test)
+# 8. Obtener los detalles de entrada y salida del modelo
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
 
-# Rescale the predicted and test values to their original scale
-#y_pred = scalerY.inverse_transform(y_pred.reshape(-1, 1)).flatten()
-# Rescale the predicted and test values to their original scale
-y_pred = scalerY.inverse_transform(y_pred.reshape(-1, 1)).flatten()
-# Calculate RMSE and CVRMSE for the test set
-rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-cvrmse = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
+# 9. Realizar predicciones sobre el conjunto de prueba
+predictions = []
+for data in X_test:
+    # Preparar los datos de entrada
+    input_data = np.expand_dims(data, axis=0)
+    input_data = np.float32(input_data)
+    interpreter.set_tensor(input_details[0]['index'], input_data)
 
+    # Realizar la inferencia
+    interpreter.invoke()
 
+    # Obtener los resultados
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    predictions.append(np.argmax(output_data))
 
-
-# Print the results
-print("RMSE:", rmse)
-print("CVRMSE:", cvrmse)
-
-# Plot the predictions and real values of the test set
-import matplotlib.pyplot as plt
-
-plt.plot(y_test.to_numpy(), label='Real')
-plt.plot(y_pred, label='Predicted')
-plt.legend()
-plt.show()
-
-import svgwrite
-dwg = svgwrite.Drawing('test.svg', profile='tiny')
-plt.plot(y_test.to_numpy(), label='Real')
-plt.plot(y_pred, label='Predicted')
-plt.legend()
-dwg.save()
+# 10. Calcular la precisión del modelo
+accuracy = np.mean(np.equal(predictions, y_test)) * 100
+print("Precisión del modelo cuantizado: {:.2f}%".format(accuracy))
