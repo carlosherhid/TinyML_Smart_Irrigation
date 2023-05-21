@@ -128,3 +128,254 @@ plt.plot(y_test.to_numpy(), label='Real')
 plt.plot(y_pred, label='Predicted')
 plt.legend()
 dwg.save()
+
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense
+
+# Split the data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Scale the input features
+scaler = StandardScaler()
+scalerY = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Scale the target variable
+y_train_scaled = scalerY.fit_transform(y_train.to_numpy().reshape(-1, 1)).ravel()
+
+# Build the neural network model
+model = Sequential()
+model.add(Dense(64, activation='relu', input_dim=X_train.shape[1]))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(1))
+
+# Compile the model
+model.compile(loss='mean_squared_error', optimizer='adam')
+
+# Train the model
+model.fit(X_train, y_train_scaled, epochs=100, batch_size=32, verbose=0)
+
+# Make predictions on the test set
+y_pred_scaled = model.predict(X_test)
+
+# Rescale the predicted values to their original scale
+y_pred = scalerY.inverse_transform(y_pred_scaled).flatten()
+
+# Calculate RMSE and CVRMSE for the test set
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+cvrmse = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
+
+
+# Initialize lists to store error values
+rmse_values = []
+cvrmse_values = []
+y_pred_list = []
+
+# Perform 10 runs
+for _ in range(10):
+	# Build the neural network model
+	model = Sequential()
+	model.add(Dense(64, activation='relu', input_dim=X_train.shape[1]))
+	model.add(Dense(32, activation='relu'))
+	model.add(Dense(1))
+	# Compile the model
+	model.compile(loss='mean_squared_error', optimizer='adam')
+	# Train the model
+	model.fit(X_train, y_train_scaled, epochs=100, batch_size=32, verbose=0)
+	# Make predictions on the test set
+	y_pred_scaled = model.predict(X_test)
+	# Rescale the predicted values to their original scale
+	y_pred = scalerY.inverse_transform(y_pred_scaled).flatten()
+	# Calculate RMSE and CVRMSE for the test set
+	rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+	cvrmse = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
+	y_pred_list.append(y_pred)
+	rmse_values.append(rmse)
+	cvrmse_values.append(cvrmse)
+
+print("Mean RMSE:", np.mean(rmse_values))
+print("Mean CVRMSE:", np.mean(cvrmse_values))
+print("Standard Deviation RMSE:", np.std(rmse_values))
+print("Standard Deviation CVRMSE:", np.std(cvrmse_values))
+
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+
+axes[0].plot(y_test.to_numpy(), label='Real')
+axes[0].plot(y_pred_list[best_index], label='Predicted (Best)')
+axes[0].set_title('Best Scenario')
+axes[0].legend()
+
+axes[1].plot(y_test.to_numpy(), label='Real')
+axes[1].plot(y_pred_list[worst_index], label='Predicted (Worst)')
+axes[1].set_title('Worst Scenario')
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+
+# UNA RED SECUENCIAL UN POQUITO MÁS COMPLEJA
+
+# Initialize lists to store error values
+rmse_values = []
+cvrmse_values = []
+y_pred_list = []
+
+# Perform 10 runs
+for _ in range(10):
+	# Build the neural network model
+	model = Sequential()
+	model.add(Dense(128, activation='relu', input_dim=X_train.shape[1]))
+	model.add(Dense(64, activation='relu'))
+	model.add(Dense(32, activation='relu'))
+	model.add(Dense(1))
+	# Compile the model
+	model.compile(loss='mean_squared_error', optimizer='adam')
+	# Train the model
+	model.fit(X_train, y_train_scaled, epochs=100, batch_size=32, verbose=0)
+	# Make predictions on the test set
+	y_pred_scaled = model.predict(X_test)
+	# Rescale the predicted values to their original scale
+	y_pred = scalerY.inverse_transform(y_pred_scaled).flatten()
+	# Calculate RMSE and CVRMSE for the test set
+	rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+	cvrmse = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
+	y_pred_list.append(y_pred)
+	rmse_values.append(rmse)
+	cvrmse_values.append(cvrmse)
+
+print("Mean RMSE:", np.mean(rmse_values))
+print("Mean CVRMSE:", np.mean(cvrmse_values))
+print("Standard Deviation RMSE:", np.std(rmse_values))
+print("Standard Deviation CVRMSE:", np.std(cvrmse_values))
+
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+
+axes[0].plot(y_test.to_numpy(), label='Real')
+axes[0].plot(y_pred_list[best_index], label='Predicted (Best)')
+axes[0].set_title('Best Scenario')
+axes[0].legend()
+
+axes[1].plot(y_test.to_numpy(), label='Real')
+axes[1].plot(y_pred_list[worst_index], label='Predicted (Worst)')
+axes[1].set_title('Worst Scenario')
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+
+# UNA RED NEURONAL CNN
+from keras.models import Sequential
+from keras.layers import Conv1D, MaxPooling1D, Flatten, Dense
+# Initialize lists to store error values
+rmse_values = []
+cvrmse_values = []
+y_pred_list = []
+input_length = X_train.shape[1]
+# Perform 10 runs
+for _ in range(10):
+	model = Sequential()
+	model.add(Conv1D(32, kernel_size=3, activation='relu', input_shape=(input_length, 1)))
+	model.add(MaxPooling1D(pool_size=2))
+	model.add(Conv1D(64, kernel_size=3, activation='relu'))
+	model.add(MaxPooling1D(pool_size=2))
+	model.add(Flatten())
+	model.add(Dense(128, activation='relu'))
+	model.add(Dense(1))
+	# Compile the model
+	model.compile(loss='mean_squared_error', optimizer='adam')
+	# Train the model
+	model.fit(X_train, y_train_scaled, epochs=100, batch_size=32, verbose=0)
+	# Make predictions on the test set
+	y_pred_scaled = model.predict(X_test)
+	# Rescale the predicted values to their original scale
+	y_pred = scalerY.inverse_transform(y_pred_scaled).flatten()
+	# Calculate RMSE and CVRMSE for the test set
+	rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+	cvrmse = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
+	y_pred_list.append(y_pred)
+	rmse_values.append(rmse)
+	cvrmse_values.append(cvrmse)
+
+print("Mean RMSE:", np.mean(rmse_values))
+print("Mean CVRMSE:", np.mean(cvrmse_values))
+print("Standard Deviation RMSE:", np.std(rmse_values))
+print("Standard Deviation CVRMSE:", np.std(cvrmse_values))
+
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+
+axes[0].plot(y_test.to_numpy(), label='Real')
+axes[0].plot(y_pred_list[best_index], label='Predicted (Best)')
+axes[0].set_title('Best Scenario')
+axes[0].legend()
+
+axes[1].plot(y_test.to_numpy(), label='Real')
+axes[1].plot(y_pred_list[worst_index], label='Predicted (Worst)')
+axes[1].set_title('Worst Scenario')
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+# UNA RED NEURONAL CNN + LSTM
+
+from keras.models import Sequential
+from keras.layers import Conv1D, MaxPooling1D, Flatten, Dense, LSTM
+# Initialize lists to store error values
+rmse_values = []
+cvrmse_values = []
+y_pred_list = []
+input_length = X_train.shape[1]
+# Perform 10 runs
+for _ in range(10):
+	model = Sequential()
+	model.add(Conv1D(32, kernel_size=3, activation='relu', input_shape=(input_length, 1)))
+	model.add(MaxPooling1D(pool_size=2))
+	model.add(Conv1D(64, kernel_size=3, activation='relu'))
+	model.add(MaxPooling1D(pool_size=2))
+	model.add(LSTM(64, activation='relu'))
+	model.add(Dense(128, activation='relu'))
+	model.add(Dense(1))
+	# Compile the model
+	model.compile(loss='mean_squared_error', optimizer='adam')
+	# Train the model
+	model.fit(X_train, y_train_scaled, epochs=100, batch_size=32, verbose=0)
+	# Make predictions on the test set
+	y_pred_scaled = model.predict(X_test)
+	# Rescale the predicted values to their original scale
+	y_pred = scalerY.inverse_transform(y_pred_scaled).flatten()
+	# Calculate RMSE and CVRMSE for the test set
+	rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+	cvrmse = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
+	y_pred_list.append(y_pred)
+	rmse_values.append(rmse)
+	cvrmse_values.append(cvrmse)
+
+print("Mean RMSE:", np.mean(rmse_values))
+print("Mean CVRMSE:", np.mean(cvrmse_values))
+print("Standard Deviation RMSE:", np.std(rmse_values))
+print("Standard Deviation CVRMSE:", np.std(cvrmse_values))
+
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+
+axes[0].plot(y_test.to_numpy(), label='Real')
+axes[0].plot(y_pred_list[best_index], label='Predicted (Best)')
+axes[0].set_title('Best Scenario')
+axes[0].legend()
+
+axes[1].plot(y_test.to_numpy(), label='Real')
+axes[1].plot(y_pred_list[worst_index], label='Predicted (Worst)')
+axes[1].set_title('Worst Scenario')
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
