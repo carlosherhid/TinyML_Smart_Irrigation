@@ -1,1 +1,0 @@
-datos_CA42 <- read.table("")

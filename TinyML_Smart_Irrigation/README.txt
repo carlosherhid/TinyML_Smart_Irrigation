@@ -1,0 +1,5 @@
+This GitHub repository contains the work done by Carlos Hernández Hidalgo and Aurora González Vidal. The objective was to create a comprehensive dataset that could aid in predicting NDVI anomalies. Following this, various machine learning models were trained using the dataset. These models will be optimized and quantized for implementation on small devices, such as sensors in fields or green parks, using the TinyML methodology.
+
+Model_Temp_Hum_NDVI_Python: This folder contains several Python scripts, each corresponding to a different type of machine learning model trained using the NDVI anomaly dataset.
+
+NDVI_anomalies_dataset_R: In this folder, several R scripts can be found. These scripts are used to generate a dataset comprising NDVI anomalies, humidity, NDVI means, temperature, and more. The resulting dataset will serve as the foundation for training the machine learning models.
