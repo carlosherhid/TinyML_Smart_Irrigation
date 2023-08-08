@@ -149,126 +149,126 @@ sg <- DatGeo$asignarEstMet() %>%
   dplyr::select(Acometida, Contrato, Principal) 
 contrato_ca42 <- sg%>%
   dplyr::filter(Principal == dflt$eemm[1]) %>% na.omit()
-contrato_ca42 <- data.frame(contrato_ca42[[1]],contrato_ca42[[2]], contrato_ca42[[3]]) #Eliminamos la columna "geometry"
-colnames(contrato_ca42) <- c("Acometida","Contrato","Estacion") #Cambiamos el nombre de las columnas
+contrato_ca42 <- data.frame(contrato_ca42[[1]],contrato_ca42[[2]], contrato_ca42[[3]]) #We removed the "geometry" column.
+colnames(contrato_ca42) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
 contrato_CA91 <- sg%>%
   dplyr::filter(Principal == dflt$eemm[2]) %>% na.omit()
-contrato_CA91 <- data.frame(contrato_CA91[[1]],contrato_CA91[[2]], contrato_CA91[[3]]) #Eliminamos la columna "geometry"
-colnames(contrato_CA91) <- c("Acometida","Contrato","Estacion") #Cambiamos el nombre de las columnas
+contrato_CA91 <- data.frame(contrato_CA91[[1]],contrato_CA91[[2]], contrato_CA91[[3]]) #We removed the "geometry" column.
+colnames(contrato_CA91) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
 contrato_MO12 <-sg%>%
   dplyr::filter(Principal == dflt$eemm[3]) %>% na.omit()
-contrato_MO12 <- data.frame(contrato_MO12[[1]],contrato_MO12[[2]], contrato_MO12[[3]]) #Eliminamos la columna "geometry"
-colnames(contrato_MO12) <- c("Acometida","Contrato","Estacion") #Cambiamos el nombre de las columnas
+contrato_MO12 <- data.frame(contrato_MO12[[1]],contrato_MO12[[2]], contrato_MO12[[3]]) #We removed the "geometry" column.
+colnames(contrato_MO12) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
 contrato_MU21 <-sg%>%
   dplyr::filter(Principal == dflt$eemm[4]) %>% na.omit()
-contrato_MU21 <- data.frame(contrato_MU21[[1]],contrato_MU21[[2]], contrato_MU21[[3]]) #Eliminamos la columna "geometry"
-colnames(contrato_MU21) <- c("Acometida","Contrato","Estacion") #Cambiamos el nombre de las columnas
+contrato_MU21 <- data.frame(contrato_MU21[[1]],contrato_MU21[[2]], contrato_MU21[[3]]) #We removed the "geometry" column.
+colnames(contrato_MU21) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
 contrato_MU62 <-sg%>%
   dplyr::filter(Principal == dflt$eemm[5]) %>% na.omit()
 contrato_MU62 <- data.frame(contrato_MU62[[1]],contrato_MU62[[2]], contrato_MU62[[3]]) #Eliminamos la columna "geometry"
-colnames(contrato_MU62) <- c("Acometida","Contrato","Estacion") #Cambiamos el nombre de las columnas
+colnames(contrato_MU62) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
 ################################################
-#Preparamos S, que serán las series iniciales de NVDI
-#Cada parque está identificado por un número de contrato
-#Por cada parque tenemos los siguientes datos:
-#   -Fecha: Día en el que se realizaron las mediciones de NVDI, se toman mediciones cada 5 días
-#   -NDVI.scl_7_8_9.Min: El mínimo valor de NVDI de ese día
-#   -NDVI.scl_7_8_9.Q1: El primer cuartil de los valores de NVDI
-#   -NDVI.scl_7_8_9.Median: La mediana de los valores de NVDI
-#   -NDVI.scl_7_8_9.Mean: La media de los valores de NVDI
-#   -NDVI.scl_7_8_9.Q3: El tercer cuartil de los valores de NVDI
-#   -NDVI.scl_7_8_9.Max: El máximo valor de NVDI de ese día
-#   -NDVI.scl_7_8_9.n: El número de mediciones de NVDI realizadas ese día para ese parque
+#We prepare S, which will be the initial NDVI series.
+#Each park is identified by a contract number.
+#For each park, we have the following data:
+#   -Fecha: Day on which the NDVI measurements were taken, measurements are taken every 5 days.
+#   -NDVI.scl_7_8_9.Min: The minimum NDVI value for that day.
+#   -NDVI.scl_7_8_9.Q1: The first quartile of the NDVI values.
+#   -NDVI.scl_7_8_9.Median: The median of the NDVI values.
+#   -NDVI.scl_7_8_9.Mean: The mean of the NDVI values.
+#   -NDVI.scl_7_8_9.Q3: The third quartile of the NDVI values.
+#   -NDVI.scl_7_8_9.Max: The maximum NDVI value for that day.
+#   -NDVI.scl_7_8_9.n: The number of NDVI measurements taken on that day for that park.
 ################################################
 S <- Verdor$readSumInd(contratos, ind, mask, ini = ini, fin = fin)
 ################################################
-#obtenemos las fechas
+#We obtain the dates.
 ################################################
 Date <-
   listDF2DF(S) %>%
   dplyr::select(Contrato, Fecha, NDVI.scl_7_8_9.Mean) %>%
   fil2col() %>% dplyr::select(Fecha)
-#Para cada uno de los parques vamos añadiendo al dataset la media de NVDI para ese día y si presenta anomalía o no con el formato:
-#NVDI_mean_numeroContrato 
-#Anomalia_numeroContrato
-#Esto lo haremos para cada una de las estaciones meteorológicas. De esta forma tendremos un dataset distinto para cada estación
-#Con las temperaturas y humedades recogidas, los contratos, las fechas, un summary de anomalías de todos los parques en cada fecha
-#Se decidirá si una medición de NVDI es anómala o no tomando de referencia la media de NVDI de todas las mediciones de cada parque
-#Si pertenece al percentil 90 o 10, entonces será anómalo.
+#For each of the parks, we add to the dataset the mean NDVI for that day and whether it exhibits an anomaly or not, in the format:
+#NVDI_mean_contractNumber
+#Anomalie_contractNumber
+#We will do this for each of the weather stations. This way, we will have a separate dataset for each station.
+#With the collected temperatures and humidities, the contracts, the dates, and a summary of anomalies for all the parks on each date.
+#It will be determined whether an NDVI measurement is anomalous or not by comparing it to the mean NDVI of all measurements for each park.
+#If it belongs to the 90th or 10th percentile, then it will be considered anomalous.
 ################################################
-# Dataset Estación CA42
+# Dataset CA42 Station
 ################################################
 ################################################
-#Añadiendo los valores de temperatura y humedad de la estación, quitando las fechas para las que no tenemos mediciones de NVDI
+#Adding the temperature and humidity values from the station, excluding the dates for which we don't have NDVI measurements.
 ################################################
-#Nos quedamos primero con las 10 primeras mediciones(Las usaremos para comparar los indices de anomalia con las 10 mediciones anteriores para que sea más real.)
+#We will initially focus on the first 10 measurements (these will be used to compare anomaly indices with the previous 10 measurements for a more realistic assessment).
 ant_CA42 <- TH_CA42[1:10,]
 TH_CA42 <- subset(TH_CA42, fecha %in% Date$Fecha)
 TH_CA42 <- rbind(ant_CA42, TH_CA42)
-auxx3 <- TH_CA42 #para usarlo y que al hacer el merge no se acumule
+auxx3 <- TH_CA42 #To use this and prevent accumulation during merging.
 for(contrato in contrato_ca42$Contrato) {
   # print(contrato)
-  #Obtenemos las medias de NVDI de ese parque
+  #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
     dplyr::select(Contrato, Fecha, NDVI.scl_7_8_9.Mean) %>% na.omit() %>%
     dplyr::filter(Contrato == contrato) %>%
     dplyr::filter(Fecha %in% TH_CA42$fecha) %>% dplyr::select(Fecha,NDVI.scl_7_8_9.Mean)
-  #Obtenemos los dos valores que nos indicarán si han sido valores de NVDI anómalos o no
+  #We obtain the two values that will indicate whether the NDVI values have been anomalous or not.
   percentil_90 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.9, na.rm = TRUE) 
   percentil_10 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.1, na.rm = TRUE)
-  #añadimos tambien las anomalias del percentil 20 y 80, para tener un indeice de anomalias distinto
+  #We also add anomalies for the 20th and 80th percentiles to have a different anomaly index.
   percentil_80 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.8, na.rm = TRUE) 
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
-  #añadimos las dos nuevas columnas a nuestro dataset
-  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #Rellenamos con NA cuando no hay valores de NVDI
+  #We add the two new columns to our dataset.
+  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
   x <- x %>% dplyr::select(NDVI.scl_7_8_9.Mean)
   TH_CA42$media <- x$NDVI.scl_7_8_9.Mean
   anomalia <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it is an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia <- append(anomalia,med)
     }
     else{
-      if(med >= percentil_90 || med <= percentil_10 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_90 || med <= percentil_10 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia <- append(anomalia,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia <-append(anomalia,0)
       }
     }
   }
-  #Obtenemos el segundo tipo de anomalía
+  #We obtain the second type of anomaly.
   anomalia2 <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it is an anomalous measurement or not (if it belongs to the 80th or 20th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia2 <- append(anomalia2,med)
     }
     else{
-      if(med >= percentil_80 || med <= percentil_20 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_80 || med <= percentil_20 ){ #If it belongs to the 80th or 20th percentile, then it is an anomalous value.
         anomalia2 <- append(anomalia2,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia2 <-append(anomalia2,0)
       }
     }
   }
-  TH_CA42$anomalia <- unlist(anomalia) #añadimos las anomalías al dataset
-  TH_CA42$anomalia2 <- unlist(anomalia2) #añadimos las anomalías al dataset
-  #Para renombrar correctamente las columnas añadidas
+  TH_CA42$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
+  TH_CA42$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
+  #To correctly rename the added columns.
   columna_media <- paste("NDVI_mean_",contrato,sep = "")
   columna_anomalia <- paste("Anomaly_", contrato,sep = "")
   columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
-  #las renombramos
+  #we rename it.
   names(TH_CA42)[names(TH_CA42) == "media"] <- columna_media
   names(TH_CA42)[names(TH_CA42) == "anomalia"] <- columna_anomalia
   names(TH_CA42)[names(TH_CA42) == "anomalia2"] <- columna_anomalia2
   
   
 }
-#Añadimos como columnas las 10 mediciones de temperatura y humedad anteriores a cada fecha
+#We add the previous 10 temperature and humidity measurements as columns for each date.
 hum1 <- list()
 hum2 <- list()
 hum3 <- list()
@@ -291,8 +291,8 @@ temp9 <- list()
 temp10 <- list()
 
 for(i in 1:nrow(TH_CA42)){
-  if(i>10){#Las 10 primeras mediciones eran solo para no perder datos
-    #Añadimos las 10 mediciones de humedad anteriores
+  if(i>10){#The first 10 measurements were only used to retain data.
+    #We add the previous 10 humidity measurements.
     hum1 <- append(hum1,TH_CA42$hrmed[i-1])
     hum2 <- append(hum2,TH_CA42$hrmed[i-2])
     hum3 <- append(hum3,TH_CA42$hrmed[i-3])
@@ -303,7 +303,7 @@ for(i in 1:nrow(TH_CA42)){
     hum8 <- append(hum8,TH_CA42$hrmed[i-8])
     hum9 <- append(hum9,TH_CA42$hrmed[i-9])
     hum10 <- append(hum10,TH_CA42$hrmed[i-10])
-    #Añadimos las 10 mediciones de temperatura anteriores
+    #We add the previous 10 temperature measurements.
     temp1 <- append(temp1,TH_CA42$tmed[i-1])
     temp2 <- append(temp2,TH_CA42$tmed[i-2])
     temp3 <- append(temp3,TH_CA42$tmed[i-3])
@@ -319,7 +319,7 @@ for(i in 1:nrow(TH_CA42)){
 
 }
 TH_CA42 <- TH_CA42[11:nrow(TH_CA42),]
-#Añadimos las 20 columnas anteriores al dataframe
+#We add the 20 previous columns to the dataframe.
 TH_CA42$temp1 <- unlist(temp1)
 TH_CA42$temp2 <- unlist(temp2)
 TH_CA42$temp3 <- unlist(temp3)
@@ -341,124 +341,124 @@ TH_CA42$hum7 <- unlist(hum7)
 TH_CA42$hum8 <- unlist(hum8)
 TH_CA42$hum9 <- unlist(hum9)
 TH_CA42$hum10 <- unlist(hum10)
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column containing the mean of temperature differences between a day and its following day over the last ten days (relative to the date in the row).
 med_temp <- select(TH_CA42, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_temp), ncol = 0))
 for (i in 1:(ncol(med_temp)-1)) {
   col_diff <- med_temp[,i] - med_temp[,i+1]
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences for each pair of columns.
 mean_diffs <- rowMeans(abs_diffs)
 TH_CA42$mean_temp_last10 <- mean_diffs
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column containing the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_hum <- select(TH_CA42, hum1, hum2, hum3, hum4, hum5, hum6, hum7, hum8, hum9, hum10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_hum), ncol = 0))
 for (i in 1:(ncol(med_hum)-1)) {
   col_diff <- med_hum[,i] - med_hum[,i+1]
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences for each pair of columns.
 mean_diffs <- rowMeans(abs_diffs)
 TH_CA42$mean_hum_last10 <- mean_diffs
-#Calcular columna con moda de anomalías para cada fecha
-#seleccionamos las columnas que empiezan por anomaly
+#Calculate a column with the mode of anomalies for each date.
+#We select the columns that start with "anomaly".
 anomalies_df <- dplyr::select(TH_CA42,contains("Anomaly"))
 
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of unos
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 
 #TH_CA42$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_CA42$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_CA42$anomaliesAgg2 <-ONES / (ONES+ZEROS)
 
-#Calculamos ahora el índice de anomalías del percentil 80 y 20, anomaliesAgg3
+#Now we calculate the anomaly index for the 80th and 20th percentiles, named "anomaliesAgg3".
 anomalies_df <- dplyr::select(TH_CA42,contains("Anomalia2"))
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of unos
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 TH_CA42$anomaliesAgg3 <-ONES / unique(ONES+ZEROS+NAS)
-#Por ultimo obtenemos el numero de mediciones de NDVI en cada fecha
+#Finally, we obtain the number of NDVI measurements for each date.
 TH_CA42$n_mediciones <- (ONES+ZEROS)
 write.table(x = TH_CA42, "anomaliesCA42.csv", row.names = F, sep=";")
 ################################################
-# Dataset Estación CA91
+# Dataset CA91 Station
 ################################################
 ################################################
-#Añadiendo los valores de temperatura y humedad de la estación, quitando las fechas para las que no tenemos mediciones de NVDI
+#Adding the temperature and humidity values from the station, excluding the dates for which we don't have NDVI measurements.
 ################################################
 ant_CA91 <- TH_CA91[1:10,]
 TH_CA91 <- subset(TH_CA91, fecha %in% Date$Fecha)
 TH_CA91 <- rbind(ant_CA91, TH_CA91)
-auxx3 <- TH_CA91 #para usarlo y que al hacer el merge no se acumule
+auxx3 <- TH_CA91 #To use it and prevent accumulation during the merge.
 for(contrato in contrato_CA91$Contrato) {
   # print(contrato)
-  #Obtenemos las medias de NVDI de ese parque
+  #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
     dplyr::select(Contrato, Fecha, NDVI.scl_7_8_9.Mean) %>% na.omit() %>%
     dplyr::filter(Contrato == contrato) %>%
     dplyr::filter(Fecha %in% TH_CA91$fecha) %>% dplyr::select(Fecha,NDVI.scl_7_8_9.Mean)
-  #Obtenemos los dos valores que nos indicarán si han sido valores de NVDI anómalos o no
+  #We obtain the two values that will indicate whether the NDVI values have been anomalous or not.
   percentil_90 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.9, na.rm = TRUE) 
   percentil_10 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.1, na.rm = TRUE)
-  #añadimos tambien las anomalias del percentil 20 y 80, para tener un indeice de anomalias distinto
+  #We also add the anomalies for the 20th and 80th percentiles to have a different anomaly index.
   percentil_80 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.8, na.rm = TRUE) 
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
-  #añadimos las dos nuevas columnas a nuestro dataset
-  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #Rellenamos con NA cuando no hay valores de NVDI
+  #We add the two new columns to our dataset.
+  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
   x <- x %>% dplyr::select(NDVI.scl_7_8_9.Mean)
   TH_CA91$media <- x$NDVI.scl_7_8_9.Mean
   anomalia <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia <- append(anomalia,med)
     }
     else{
-      if(med >= percentil_90 || med <= percentil_10 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_90 || med <= percentil_10 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia <- append(anomalia,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia <-append(anomalia,0)
       }
     }
   }
-  #Obtenemos el segundo tipo de anomalía
+  #We obtain the second type of anomaly.
   anomalia2 <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia2 <- append(anomalia2,med)
     }
     else{
-      if(med >= percentil_80 || med <= percentil_20 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_80 || med <= percentil_20 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia2 <- append(anomalia2,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia2 <-append(anomalia2,0)
       }
     }
   }
-  TH_CA91$anomalia <- unlist(anomalia) #añadimos las anomalías al dataset
-  TH_CA91$anomalia2 <- unlist(anomalia2) #añadimos las anomalías al dataset
-  #Para renombrar correctamente las columnas añadidas
+  TH_CA91$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
+  TH_CA91$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
+  #To rename the added columns correctly.
   columna_media <- paste("NDVI_mean_",contrato,sep = "")
   columna_anomalia <- paste("Anomaly_", contrato,sep = "")
   columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
-  #las renombramos
+  #we rename them
   names(TH_CA91)[names(TH_CA91) == "media"] <- columna_media
   names(TH_CA91)[names(TH_CA91) == "anomalia"] <- columna_anomalia
   names(TH_CA91)[names(TH_CA91) == "anomalia2"] <- columna_anomalia2
   
   
 }
-#Añadimos como columnas las 10 mediciones de temperatura y humedad anteriores a cada fecha
+#We add the previous 10 temperature and humidity measurements as columns for each date.
 hum1 <- list()
 hum2 <- list()
 hum3 <- list()
@@ -481,8 +481,8 @@ temp9 <- list()
 temp10 <- list()
 
 for(i in 1:nrow(TH_CA91)){
-  if(i>10){#Las 10 primeras mediciones eran solo para no perder datos
-    #Añadimos las 10 mediciones de humedad anteriores
+  if(i>10){#The first 10 measurements were only used to retain data.
+    #We add the previous 10 humidity measurements.
     hum1 <- append(hum1,TH_CA91$hrmed[i-1])
     hum2 <- append(hum2,TH_CA91$hrmed[i-2])
     hum3 <- append(hum3,TH_CA91$hrmed[i-3])
@@ -493,7 +493,7 @@ for(i in 1:nrow(TH_CA91)){
     hum8 <- append(hum8,TH_CA91$hrmed[i-8])
     hum9 <- append(hum9,TH_CA91$hrmed[i-9])
     hum10 <- append(hum10,TH_CA91$hrmed[i-10])
-    #Añadimos las 10 mediciones de temperatura anteriores
+    #We add the previous 10 temperature measurements.
     temp1 <- append(temp1,TH_CA91$tmed[i-1])
     temp2 <- append(temp2,TH_CA91$tmed[i-2])
     temp3 <- append(temp3,TH_CA91$tmed[i-3])
@@ -508,8 +508,8 @@ for(i in 1:nrow(TH_CA91)){
   }
   
 }
-TH_CA91 <- TH_CA91[11:nrow(TH_CA91),] #Quitamos las 10 filas innecesarias para las que no hay mediciones de NDVI
-#Añadimos las 20 columnas anteriores al dataframe
+TH_CA91 <- TH_CA91[11:nrow(TH_CA91),] #We remove the 10 unnecessary rows for which there are no NDVI measurements.
+#We add the previous 20 columns to the dataframe.
 TH_CA91$temp1 <- unlist(temp1)
 TH_CA91$temp2 <- unlist(temp2)
 TH_CA91$temp3 <- unlist(temp3)
@@ -531,9 +531,9 @@ TH_CA91$hum7 <- unlist(hum7)
 TH_CA91$hum8 <- unlist(hum8)
 TH_CA91$hum9 <- unlist(hum9)
 TH_CA91$hum10 <- unlist(hum10)
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_temp <- select(TH_CA91, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_temp), ncol = 0))
 for (i in 1:(ncol(med_temp)-1)) {
   col_diff <- med_temp[,i] - med_temp[,i+1]
@@ -543,9 +543,9 @@ abs_diffs <- abs(diff_df)
 # calcular la media de las diferencias absolutas de cada par de columnas
 mean_diffs <- rowMeans(abs_diffs)
 TH_CA91$mean_temp_last10 <- mean_diffs
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_hum <- select(TH_CA91, hum1, hum2, hum3, hum4, hum5, hum6, hum7, hum8, hum9, hum10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_hum), ncol = 0))
 for (i in 1:(ncol(med_hum)-1)) {
   col_diff <- med_hum[,i] - med_hum[,i+1]
@@ -579,75 +579,75 @@ write.table(x = TH_CA91, "anomaliesCA91.csv", row.names = F, sep=";")
 # Dataset Estación MO12
 ################################################
 ################################################
-#Añadiendo los valores de temperatura y humedad de la estación, quitando las fechas para las que no tenemos mediciones de NVDI
+#Adding the temperature and humidity values from the station, excluding the dates for which we don't have NDVI measurements.
 ################################################
 ant_MO12 <- TH_MO12[1:10,]
 TH_MO12 <- subset(TH_MO12, fecha %in% Date$Fecha)
 TH_MO12 <- rbind(ant_MO12, TH_MO12)
-auxx3 <- TH_MO12 #para usarlo y que al hacer el merge no se acumule
+auxx3 <- TH_MO12 #To use it and prevent accumulation during the merge.
 for(contrato in contrato_MO12$Contrato) {
   # print(contrato)
-  #Obtenemos las medias de NVDI de ese parque
+  #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
     dplyr::select(Contrato, Fecha, NDVI.scl_7_8_9.Mean) %>% na.omit() %>%
     dplyr::filter(Contrato == contrato) %>%
     dplyr::filter(Fecha %in% TH_MO12$fecha) %>% dplyr::select(Fecha,NDVI.scl_7_8_9.Mean)
-  #Obtenemos los dos valores que nos indicarán si han sido valores de NVDI anómalos o no
+  #We obtain the two values that will indicate whether the NDVI values have been anomalous or not.
   percentil_90 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.9, na.rm = TRUE) 
   percentil_10 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.1, na.rm = TRUE)
-  #añadimos tambien las anomalias del percentil 20 y 80, para tener un indeice de anomalias distinto
+  #We also add the anomalies for the 20th and 80th percentiles to have a different anomaly index.
   percentil_80 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.8, na.rm = TRUE) 
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
-  #añadimos las dos nuevas columnas a nuestro dataset
-  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #Rellenamos con NA cuando no hay valores de NVDI
+  #We add the two new columns to our dataset.
+  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
   x <- x %>% dplyr::select(NDVI.scl_7_8_9.Mean)
   TH_MO12$media <- x$NDVI.scl_7_8_9.Mean
   anomalia <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia <- append(anomalia,med)
     }
     else{
-      if(med >= percentil_90 || med <= percentil_10 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_90 || med <= percentil_10 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia <- append(anomalia,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia <-append(anomalia,0)
       }
     }
   }
-  #Obtenemos el segundo tipo de anomalía
+  #We obtain the second type of anomaly.
   anomalia2 <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia2 <- append(anomalia2,med)
     }
     else{
-      if(med >= percentil_80 || med <= percentil_20 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_80 || med <= percentil_20 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia2 <- append(anomalia2,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia2 <-append(anomalia2,0)
       }
     }
   }
-  TH_MO12$anomalia <- unlist(anomalia) #añadimos las anomalías al dataset
-  TH_MO12$anomalia2 <- unlist(anomalia2) #añadimos las anomalías al dataset
-  #Para renombrar correctamente las columnas añadidas
+  TH_MO12$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
+  TH_MO12$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
+  #To rename the added columns correctly.
   columna_media <- paste("NDVI_mean_",contrato,sep = "")
   columna_anomalia <- paste("Anomaly_", contrato,sep = "")
   columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
-  #las renombramos
+  #we rename them
   names(TH_MO12)[names(TH_MO12) == "media"] <- columna_media
   names(TH_MO12)[names(TH_MO12) == "anomalia"] <- columna_anomalia
   names(TH_MO12)[names(TH_MO12) == "anomalia2"] <- columna_anomalia2
   
   
 }
-#Añadimos como columnas las 10 mediciones de temperatura y humedad anteriores a cada fecha
+#We add the previous 10 temperature and humidity measurements as columns for each date.
 hum1 <- list()
 hum2 <- list()
 hum3 <- list()
@@ -670,8 +670,8 @@ temp9 <- list()
 temp10 <- list()
 
 for(i in 1:nrow(TH_MO12)){
-  if(i>10){#Las 10 primeras mediciones eran solo para no perder datos
-    #Añadimos las 10 mediciones de humedad anteriores
+  if(i>10){#The first 10 measurements were only used to retain data.
+    #We add the previous 10 humidity measurements.
     hum1 <- append(hum1,TH_MO12$hrmed[i-1])
     hum2 <- append(hum2,TH_MO12$hrmed[i-2])
     hum3 <- append(hum3,TH_MO12$hrmed[i-3])
@@ -682,7 +682,7 @@ for(i in 1:nrow(TH_MO12)){
     hum8 <- append(hum8,TH_MO12$hrmed[i-8])
     hum9 <- append(hum9,TH_MO12$hrmed[i-9])
     hum10 <- append(hum10,TH_MO12$hrmed[i-10])
-    #Añadimos las 10 mediciones de temperatura anteriores
+    #We add the previous 10 temperature measurements.
     temp1 <- append(temp1,TH_MO12$tmed[i-1])
     temp2 <- append(temp2,TH_MO12$tmed[i-2])
     temp3 <- append(temp3,TH_MO12$tmed[i-3])
@@ -697,8 +697,8 @@ for(i in 1:nrow(TH_MO12)){
   }
   
 }
-TH_MO12 <- TH_MO12[11:nrow(TH_MO12),] #Quitamos las 10 filas innecesarias para las que no hay mediciones de NDVI
-#Añadimos las 20 columnas anteriores al dataframe
+TH_MO12 <- TH_MO12[11:nrow(TH_MO12),] #We remove the 10 unnecessary rows for which there are no NDVI measurements.
+#We add the previous 20 columns to the dataframe.
 TH_MO12$temp1 <- unlist(temp1)
 TH_MO12$temp2 <- unlist(temp2)
 TH_MO12$temp3 <- unlist(temp3)
@@ -720,9 +720,9 @@ TH_MO12$hum7 <- unlist(hum7)
 TH_MO12$hum8 <- unlist(hum8)
 TH_MO12$hum9 <- unlist(hum9)
 TH_MO12$hum10 <- unlist(hum10)
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_temp <- select(TH_MO12, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_temp), ncol = 0))
 for (i in 1:(ncol(med_temp)-1)) {
   col_diff <- med_temp[,i] - med_temp[,i+1]
@@ -732,9 +732,9 @@ abs_diffs <- abs(diff_df)
 # calcular la media de las diferencias absolutas de cada par de columnas
 mean_diffs <- rowMeans(abs_diffs)
 TH_MO12$mean_temp_last10 <- mean_diffs
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_hum <- select(TH_MO12, hum1, hum2, hum3, hum4, hum5, hum6, hum7, hum8, hum9, hum10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_hum), ncol = 0))
 for (i in 1:(ncol(med_hum)-1)) {
   col_diff <- med_hum[,i] - med_hum[,i+1]
@@ -768,75 +768,75 @@ write.table(x = TH_MO12, "anomaliesMO12.csv", row.names = F, sep=";")
 # Dataset Estación MU21
 ################################################
 ################################################
-#Añadiendo los valores de temperatura y humedad de la estación, quitando las fechas para las que no tenemos mediciones de NVDI
+#Adding the temperature and humidity values from the station, excluding the dates for which we don't have NDVI measurements.
 ################################################
 ant_MU21 <- TH_MU21[1:10,]
 TH_MU21 <- subset(TH_MU21, fecha %in% Date$Fecha)
 TH_MU21 <- rbind(ant_MU21, TH_MU21)
-auxx3 <- TH_MU21 #para usarlo y que al hacer el merge no se acumule
+auxx3 <- TH_MU21 #To use it and prevent accumulation during the merge.
 for(contrato in contrato_MU21$Contrato) {
   # print(contrato)
-  #Obtenemos las medias de NVDI de ese parque
+  #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
     dplyr::select(Contrato, Fecha, NDVI.scl_7_8_9.Mean) %>% na.omit() %>%
     dplyr::filter(Contrato == contrato) %>%
     dplyr::filter(Fecha %in% TH_MU21$fecha) %>% dplyr::select(Fecha,NDVI.scl_7_8_9.Mean)
-  #Obtenemos los dos valores que nos indicarán si han sido valores de NVDI anómalos o no
+  #We obtain the two values that will indicate whether the NDVI values have been anomalous or not.
   percentil_90 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.9, na.rm = TRUE) 
   percentil_10 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.1, na.rm = TRUE)
-  #añadimos tambien las anomalias del percentil 20 y 80, para tener un indeice de anomalias distinto
+  #We also add the anomalies for the 20th and 80th percentiles to have a different anomaly index.
   percentil_80 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.8, na.rm = TRUE) 
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
-  #añadimos las dos nuevas columnas a nuestro dataset
-  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #Rellenamos con NA cuando no hay valores de NVDI
+  #We add the two new columns to our dataset.
+  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
   x <- x %>% dplyr::select(NDVI.scl_7_8_9.Mean)
   TH_MU21$media <- x$NDVI.scl_7_8_9.Mean
   anomalia <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia <- append(anomalia,med)
     }
     else{
-      if(med >= percentil_90 || med <= percentil_10 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_90 || med <= percentil_10 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia <- append(anomalia,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia <-append(anomalia,0)
       }
     }
   }
-  #Obtenemos el segundo tipo de anomalía
+  #We obtain the second type of anomaly.
   anomalia2 <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia2 <- append(anomalia2,med)
     }
     else{
-      if(med >= percentil_80 || med <= percentil_20 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_80 || med <= percentil_20 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia2 <- append(anomalia2,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia2 <-append(anomalia2,0)
       }
     }
   }
-  TH_MU21$anomalia <- unlist(anomalia) #añadimos las anomalías al dataset
-  TH_MU21$anomalia2 <- unlist(anomalia2) #añadimos las anomalías al dataset
-  #Para renombrar correctamente las columnas añadidas
+  TH_MU21$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
+  TH_MU21$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
+  #To rename the added columns correctly.
   columna_media <- paste("NDVI_mean_",contrato,sep = "")
   columna_anomalia <- paste("Anomaly_", contrato,sep = "")
   columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
-  #las renombramos
+  #we rename them
   names(TH_MU21)[names(TH_MU21) == "media"] <- columna_media
   names(TH_MU21)[names(TH_MU21) == "anomalia"] <- columna_anomalia
   names(TH_MU21)[names(TH_MU21) == "anomalia2"] <- columna_anomalia2
   
   
 }
-#Añadimos como columnas las 10 mediciones de temperatura y humedad anteriores a cada fecha
+#We add the previous 10 temperature and humidity measurements as columns for each date.
 hum1 <- list()
 hum2 <- list()
 hum3 <- list()
@@ -859,8 +859,8 @@ temp9 <- list()
 temp10 <- list()
 
 for(i in 1:nrow(TH_MU21)){
-  if(i>10){#Las 10 primeras mediciones eran solo para no perder datos
-    #Añadimos las 10 mediciones de humedad anteriores
+  if(i>10){#The first 10 measurements were only used to retain data.
+    #We add the previous 10 humidity measurements.
     hum1 <- append(hum1,TH_MU21$hrmed[i-1])
     hum2 <- append(hum2,TH_MU21$hrmed[i-2])
     hum3 <- append(hum3,TH_MU21$hrmed[i-3])
@@ -871,7 +871,7 @@ for(i in 1:nrow(TH_MU21)){
     hum8 <- append(hum8,TH_MU21$hrmed[i-8])
     hum9 <- append(hum9,TH_MU21$hrmed[i-9])
     hum10 <- append(hum10,TH_MU21$hrmed[i-10])
-    #Añadimos las 10 mediciones de temperatura anteriores
+    #We add the previous 10 temperature measurements.
     temp1 <- append(temp1,TH_MU21$tmed[i-1])
     temp2 <- append(temp2,TH_MU21$tmed[i-2])
     temp3 <- append(temp3,TH_MU21$tmed[i-3])
@@ -886,8 +886,8 @@ for(i in 1:nrow(TH_MU21)){
   }
   
 }
-TH_MU21 <- TH_MU21[11:nrow(TH_MU21),] #Quitamos las 10 filas innecesarias para las que no hay mediciones de NDVI
-#Añadimos las 20 columnas anteriores al dataframe
+TH_MU21 <- TH_MU21[11:nrow(TH_MU21),] #We remove the 10 unnecessary rows for which there are no NDVI measurements.
+#We add the previous 20 columns to the dataframe.
 TH_MU21$temp1 <- unlist(temp1)
 TH_MU21$temp2 <- unlist(temp2)
 TH_MU21$temp3 <- unlist(temp3)
@@ -909,9 +909,9 @@ TH_MU21$hum7 <- unlist(hum7)
 TH_MU21$hum8 <- unlist(hum8)
 TH_MU21$hum9 <- unlist(hum9)
 TH_MU21$hum10 <- unlist(hum10)
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_temp <- select(TH_MU21, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_temp), ncol = 0))
 for (i in 1:(ncol(med_temp)-1)) {
   col_diff <- med_temp[,i] - med_temp[,i+1]
@@ -921,9 +921,9 @@ abs_diffs <- abs(diff_df)
 # calcular la media de las diferencias absolutas de cada par de columnas
 mean_diffs <- rowMeans(abs_diffs)
 TH_MU21$mean_temp_last10 <- mean_diffs
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_hum <- select(TH_MU21, hum1, hum2, hum3, hum4, hum5, hum6, hum7, hum8, hum9, hum10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_hum), ncol = 0))
 for (i in 1:(ncol(med_hum)-1)) {
   col_diff <- med_hum[,i] - med_hum[,i+1]
@@ -957,75 +957,75 @@ write.table(x = TH_MU21, "anomaliesMU21.csv", row.names = F, sep=";")
 # Dataset Estación MU62
 ################################################
 ################################################
-#Añadiendo los valores de temperatura y humedad de la estación, quitando las fechas para las que no tenemos mediciones de NVDI
+#Adding the temperature and humidity values from the station, excluding the dates for which we don't have NDVI measurements.
 ################################################
 ant_MU62 <- TH_MU62[1:10,]
 TH_MU62 <- subset(TH_MU62, fecha %in% Date$Fecha)
 TH_MU62 <- rbind(ant_MU62, TH_MU62)
-auxx3 <- TH_MU62 #para usarlo y que al hacer el merge no se acumule
+auxx3 <- TH_MU62 #To use it and prevent accumulation during the merge.
 for(contrato in contrato_MU62$Contrato) {
   # print(contrato)
-  #Obtenemos las medias de NVDI de ese parque
+  #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
     dplyr::select(Contrato, Fecha, NDVI.scl_7_8_9.Mean) %>% na.omit() %>%
     dplyr::filter(Contrato == contrato) %>%
     dplyr::filter(Fecha %in% TH_MU62$fecha) %>% dplyr::select(Fecha,NDVI.scl_7_8_9.Mean)
-  #Obtenemos los dos valores que nos indicarán si han sido valores de NVDI anómalos o no
+  #We obtain the two values that will indicate whether the NDVI values have been anomalous or not.
   percentil_90 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.9, na.rm = TRUE) 
   percentil_10 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.1, na.rm = TRUE)
-  #añadimos tambien las anomalias del percentil 20 y 80, para tener un indeice de anomalias distinto
+  #We also add the anomalies for the 20th and 80th percentiles to have a different anomaly index.
   percentil_80 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.8, na.rm = TRUE) 
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
-  #añadimos las dos nuevas columnas a nuestro dataset
-  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #Rellenamos con NA cuando no hay valores de NVDI
+  #We add the two new columns to our dataset.
+  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
   x <- x %>% dplyr::select(NDVI.scl_7_8_9.Mean)
   TH_MU62$media <- x$NDVI.scl_7_8_9.Mean
   anomalia <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia <- append(anomalia,med)
     }
     else{
-      if(med >= percentil_90 || med <= percentil_10 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_90 || med <= percentil_10 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia <- append(anomalia,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia <-append(anomalia,0)
       }
     }
   }
-  #Obtenemos el segundo tipo de anomalía
+  #We obtain the second type of anomaly.
   anomalia2 <- list()
-  #para cada una de las mediciones de NVDI de cada contrato determinamos si es una medición anómala o no (si pertenece al percentil 90 o al 10)
+  #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the 90th or 10th percentile).
   for(med in x$NDVI.scl_7_8_9.Mean){
     if(is.na(med)){
       anomalia2 <- append(anomalia2,med)
     }
     else{
-      if(med >= percentil_80 || med <= percentil_20 ){ #si pertenece al percentil 90 o al 10, entonces es un valor anómalo
+      if(med >= percentil_80 || med <= percentil_20 ){ #If it belongs to the 90th or 10th percentile, then it is an anomalous value.
         anomalia2 <- append(anomalia2,1)
       }
-      else{ #en otro caso no es un valor de NVDI anómalo
+      else{ #In any other case, it is not an anomalous NDVI value.
         anomalia2 <-append(anomalia2,0)
       }
     }
   }
-  TH_MU62$anomalia <- unlist(anomalia) #añadimos las anomalías al dataset
-  TH_MU62$anomalia2 <- unlist(anomalia2) #añadimos las anomalías al dataset
-  #Para renombrar correctamente las columnas añadidas
+  TH_MU62$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
+  TH_MU62$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
+  #To rename the added columns correctly.
   columna_media <- paste("NDVI_mean_",contrato,sep = "")
   columna_anomalia <- paste("Anomaly_", contrato,sep = "")
   columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
-  #las renombramos
+  #we rename them
   names(TH_MU62)[names(TH_MU62) == "media"] <- columna_media
   names(TH_MU62)[names(TH_MU62) == "anomalia"] <- columna_anomalia
   names(TH_MU62)[names(TH_MU62) == "anomalia2"] <- columna_anomalia2
   
   
 }
-#Añadimos como columnas las 10 mediciones de temperatura y humedad anteriores a cada fecha
+#We add the previous 10 temperature and humidity measurements as columns for each date.
 hum1 <- list()
 hum2 <- list()
 hum3 <- list()
@@ -1048,8 +1048,8 @@ temp9 <- list()
 temp10 <- list()
 
 for(i in 1:nrow(TH_MU62)){
-  if(i>10){#Las 10 primeras mediciones eran solo para no perder datos
-    #Añadimos las 10 mediciones de humedad anteriores
+  if(i>10){#The first 10 measurements were only used to retain data.
+    #We add the previous 10 humidity measurements.
     hum1 <- append(hum1,TH_MU62$hrmed[i-1])
     hum2 <- append(hum2,TH_MU62$hrmed[i-2])
     hum3 <- append(hum3,TH_MU62$hrmed[i-3])
@@ -1060,7 +1060,7 @@ for(i in 1:nrow(TH_MU62)){
     hum8 <- append(hum8,TH_MU62$hrmed[i-8])
     hum9 <- append(hum9,TH_MU62$hrmed[i-9])
     hum10 <- append(hum10,TH_MU62$hrmed[i-10])
-    #Añadimos las 10 mediciones de temperatura anteriores
+    #We add the previous 10 temperature measurements.
     temp1 <- append(temp1,TH_MU62$tmed[i-1])
     temp2 <- append(temp2,TH_MU62$tmed[i-2])
     temp3 <- append(temp3,TH_MU62$tmed[i-3])
@@ -1075,8 +1075,8 @@ for(i in 1:nrow(TH_MU62)){
   }
   
 }
-TH_MU62 <- TH_MU62[11:nrow(TH_MU62),] #Quitamos las 10 filas innecesarias para las que no hay mediciones de NDVI
-#Añadimos las 20 columnas anteriores al dataframe
+TH_MU62 <- TH_MU62[11:nrow(TH_MU62),] #We remove the 10 unnecessary rows for which there are no NDVI measurements.
+#We add the previous 20 columns to the dataframe.
 TH_MU62$temp1 <- unlist(temp1)
 TH_MU62$temp2 <- unlist(temp2)
 TH_MU62$temp3 <- unlist(temp3)
@@ -1098,9 +1098,9 @@ TH_MU62$hum7 <- unlist(hum7)
 TH_MU62$hum8 <- unlist(hum8)
 TH_MU62$hum9 <- unlist(hum9)
 TH_MU62$hum10 <- unlist(hum10)
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_temp <- select(TH_MU62, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_temp), ncol = 0))
 for (i in 1:(ncol(med_temp)-1)) {
   col_diff <- med_temp[,i] - med_temp[,i+1]
@@ -1110,9 +1110,9 @@ abs_diffs <- abs(diff_df)
 # calcular la media de las diferencias absolutas de cada par de columnas
 mean_diffs <- rowMeans(abs_diffs)
 TH_MU62$mean_temp_last10 <- mean_diffs
-#Calculamos ahora una columna que contenga la media de las diferencias de temperatura de un día con su siguiente de los últimos diez días (respecto a la fecha de la fila)
+#Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
 med_hum <- select(TH_MU62, hum1, hum2, hum3, hum4, hum5, hum6, hum7, hum8, hum9, hum10)
-# calcular las diferencias absolutas entre las columnas
+# Calculate the absolute differences between the columns.
 diff_df <- data.frame(matrix(nrow = nrow(med_hum), ncol = 0))
 for (i in 1:(ncol(med_hum)-1)) {
   col_diff <- med_hum[,i] - med_hum[,i+1]
