@@ -187,7 +187,8 @@ S <- Verdor$readSumInd(contratos, ind, mask, ini = ini, fin = fin)
 Date <-
   listDF2DF(S) %>%
   dplyr::select(Contrato, Fecha, NDVI.scl_7_8_9.Mean) %>%
-  fil2col() %>% dplyr::select(Fecha)
+  filter(!is.na(NDVI.scl_7_8_9.Mean)) %>%
+  select(Fecha)
 #For each of the parks, we add to the dataset the mean NDVI for that day and whether it exhibits an anomaly or not, in the format:
 #NVDI_mean_contractNumber
 #Anomalie_contractNumber
@@ -600,6 +601,48 @@ for(contrato in contrato_MO12$Contrato) {
   percentil_80 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.8, na.rm = TRUE) 
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
   #We add the two new columns to our dataset.
+  ######################################################################################
+  #TODOS LOS PERCENTILES
+  ######################################################################################
+  # Vector con los percentiles deseados
+  percentiles <- c(seq(0.98, 0.6, -0.01), seq(0.02, 0.4, 0.01))
+  
+  # Vector para almacenar los resultados
+  percentile_values <- vector("numeric", length(percentiles))
+  
+  # Datos
+  data <- media$NDVI.scl_7_8_9.Mean
+  
+  # Calcular los percentiles y almacenar los valores en el vector
+  for (i in 1:length(percentiles)) {
+    percentile_values[i] <- quantile(x = data, probs = percentiles[i], na.rm = TRUE)
+    
+  }
+  
+  # Separar los percentiles en dos conjuntos
+  percentile_98_to_60 <- percentile_values[percentiles >= 0.6 & percentiles <= 0.98]
+  percentile_2_to_40 <- percentile_values[percentiles >= 0.02 & percentiles <= 0.4]
+  anomalias <- vector("numeric", length(percentile_2_to_40))
+  x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
+  x <- x %>% dplyr::select(NDVI.scl_7_8_9.Mean)
+  for (i in 1:length(percentile_98_to_60)){
+    #For each of the NDVI measurements for each contract, we determine whether it's an anomalous measurement or not (if it belongs to the xth or xth percentile).
+    for(med in x$NDVI.scl_7_8_9.Mean){
+      if(is.na(med)){
+        anomalias[i] <- append(anomalias[i],med)
+      }
+      else{
+        if(med >= percentile_98_to_60[i] || med <= percentile_2_to_40[i] ){ #If it belongs to the xth or xth percentile, then it is an anomalous value.
+          anomalias[i] <- append(anomalias[i],1)
+        }
+        else{ #In any other case, it is not an anomalous NDVI value.
+          anomalias[i] <-append(anomalias[i],0)
+        }
+      }
+    }
+  }
+  #####################################################################################
+  #####################################################################################
   x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
   x <- x %>% dplyr::select(NDVI.scl_7_8_9.Mean)
   TH_MO12$media <- x$NDVI.scl_7_8_9.Mean
