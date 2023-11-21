@@ -1,0 +1,246 @@
+########################################
+PREDICCI N  NDICE ANOMAL A N MERO 3.
+ Considera anomal a de NDVI si el valor est  en los percentiles 97 y 3 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.04210394691703455
+Mean CVRMSE: 12.230540656493735
+Standard Deviation RMSE: 0.003149895714889922
+Standard Deviation CVRMSE: 0.7443850815308158
+Best RMSE: 0.03672233830333861
+Best CVRMSE: 11.222559755387977
+worst RMSE: 0.04751315060628429
+Worst CVRMSE: 13.366639361464024
+
+1/1 [==============================] - ETA: 0s - loss: 0.3680 - accuracy: 0.0000e+00
+1/1 [==============================] - 0s 77ms/step - loss: 0.3680 - accuracy: 0.0000e+00
+Rendimiento del modelo sin cuantizar
+RMSE: 0.03672233830333861
+CVRMSE: 11.222559755387977
+Rendimiento y precisi n del modelo cuantizado:
+RMSE: 0.036704531368361985
+CVRMSE: 12.481231741221997
+Tama o del modelo sin cuantizar: 35208 bytes
+Tama o del modelo cuantizado: 6240 bytes
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 31ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 32ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 47ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 47ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 79ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 47ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 47ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 31ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 79ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 31ms/step
+
+1/1 [==============================] - ETA: 0s
+1/1 [==============================] - 0s 47ms/step
+
+########################################
+PREDICCI N  NDICE ANOMAL A N MERO 3.
+ Considera anomal a de NDVI si el valor est  en los percentiles 97 y 3 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.04210394691703455
+Mean CVRMSE: 12.230540656493735
+Standard Deviation RMSE: 0.003149895714889922
+Standard Deviation CVRMSE: 0.7443850815308158
+Best RMSE: 0.03672233830333861
+Best CVRMSE: 11.222559755387977
+worst RMSE: 0.04751315060628429
+Worst CVRMSE: 13.366639361464024
+
+1/1 [==============================] - ETA: 0s - loss: 0.3680 - accuracy: 0.0000e+00
+1/1 [==============================] - 0s 77ms/step - loss: 0.3680 - accuracy: 0.0000e+00
+Rendimiento del modelo sin cuantizar
+RMSE: 0.03672233830333861
+CVRMSE: 11.222559755387977
+Rendimiento y precisi n del modelo cuantizado:
+RMSE: 0.036704531368361985
+CVRMSE: 12.481231741221997
+Tama o del modelo sin cuantizar: 35208 bytes
+Tama o del modelo cuantizado: 6240 bytes
+########################################
+PREDICCI N  NDICE ANOMAL A N MERO 25.
+ Considera anomal a de NDVI si el valor est  en los percentiles 75 y 25 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.05836723386546237
+Mean CVRMSE: 25.429187884962964
+Standard Deviation RMSE: 0.0026338431248398874
+Standard Deviation CVRMSE: 1.325378169786401
+Best RMSE: 0.0549575618964902
+Best CVRMSE: 24.47638812400562
+worst RMSE: 0.06436321630574633
+Worst CVRMSE: 28.47085808616191
+
+1/1 [==============================] - ETA: 0s - loss: 0.3519 - accuracy: 0.0000e+00
+1/1 [==============================] - 0s 94ms/step - loss: 0.3519 - accuracy: 0.0000e+00
+Rendimiento del modelo sin cuantizar
+RMSE: 0.0549575618964902
+CVRMSE: 24.47638812400562
+Rendimiento y precisi n del modelo cuantizado:
+RMSE: 0.05507195784211115
+CVRMSE: 23.72857013186768
+Tama o del modelo sin cuantizar: 35208 bytes
+Tama o del modelo cuantizado: 6248 bytes
+########################################
+PREDICCI N  NDICE ANOMAL A N MERO 27.
+ Considera anomal a de NDVI si el valor est  en los percentiles 73 y 27 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.05737407292732301
+Mean CVRMSE: 22.233217126293816
+Standard Deviation RMSE: 0.0039885034246569945
+Standard Deviation CVRMSE: 1.5177080740597786
+Best RMSE: 0.05224549859588091
+Best CVRMSE: 20.416222537691
+worst RMSE: 0.06431115703033638
+Worst CVRMSE: 24.312275481166125
+
+1/1 [==============================] - ETA: 0s - loss: 0.2998 - accuracy: 0.0000e+00
+1/1 [==============================] - 0s 95ms/step - loss: 0.2998 - accuracy: 0.0000e+00
+Rendimiento del modelo sin cuantizar
+RMSE: 0.05224549859588091
+CVRMSE: 20.416222537691
+Rendimiento y precisi n del modelo cuantizado:
+RMSE: 0.05227053958505638
+CVRMSE: 20.8181373550823
+Tama o del modelo sin cuantizar: 35208 bytes
+Tama o del modelo cuantizado: 6248 bytes
+########################################
+PREDICCI N  NDICE ANOMAL A N MERO 35.
+ Considera anomal a de NDVI si el valor est  en los percentiles 65 y 35 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.04281194676987939
+Mean CVRMSE: 11.349634169942238
+Standard Deviation RMSE: 0.0035409238934306668
+Standard Deviation CVRMSE: 1.0974386172250674
+Best RMSE: 0.037975990174402556
+Best CVRMSE: 10.304722651169584
+worst RMSE: 0.050975383069161856
+Worst CVRMSE: 14.236814045128627
+
+1/1 [==============================] - ETA: 0s - loss: 0.3252 - accuracy: 0.0000e+00
+1/1 [==============================] - 0s 90ms/step - loss: 0.3252 - accuracy: 0.0000e+00
+Rendimiento del modelo sin cuantizar
+RMSE: 0.037975990174402556
+CVRMSE: 10.304722651169584
+Rendimiento y precisi n del modelo cuantizado:
+RMSE: 0.03795006950306056
+CVRMSE: 11.698576445552575
+Tama o del modelo sin cuantizar: 35208 bytes
+Tama o del modelo cuantizado: 6280 bytes
+
+########################################
+PREDICCI N  NDICE ANOMAL A N MERO 34.
+ Considera anomal a de NDVI si el valor est  en los percentiles 66 y 34 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.0426942545612369
+Mean CVRMSE: 11.61575983177433
+Standard Deviation RMSE: 0.003096057896893491
+Standard Deviation CVRMSE: 0.858841588807368
+Best RMSE: 0.0387294293269203
+Best CVRMSE: 10.44130712090271
+worst RMSE: 0.04889360108673809
+Worst CVRMSE: 12.773870067146337
+
+Rendimiento del modelo sin cuantizar
+RMSE: 0.0387294293269203
+CVRMSE: 10.44130712090271
+Rendimiento y precisi n del modelo cuantizado:
+RMSE: 0.03868442029835674
+CVRMSE: 12.317427358680748
+Tama o del modelo sin cuantizar: 35208 bytes
+Tama o del modelo cuantizado: 6280 bytes
+########################################
+PREDICCI N  NDICE ANOMAL A N MERO 36.
+ Considera anomal a de NDVI si el valor est  en los percentiles 64 y 36 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.04179637389736111
+Mean CVRMSE: 10.57520212515082
+Standard Deviation RMSE: 0.004189532392229266
+Standard Deviation CVRMSE: 0.9761148971271764
+Best RMSE: 0.03467321336778098
+Best CVRMSE: 8.672770839061423
+worst RMSE: 0.04935195942952308
+Worst CVRMSE: 12.425316733537043
+
+1/1 [==============================] - ETA: 0s - loss: 0.3596 - accuracy: 0.0000e+00
+1/1 [==============================] - 0s 79ms/step - loss: 0.3596 - accuracy: 0.0000e+00
+Rendimiento del modelo sin cuantizar
+RMSE: 0.03467321336778098
+CVRMSE: 8.672770839061423
+Rendimiento y precisi n del modelo cuantizado:
+RMSE: 0.03487349372699119
+CVRMSE: 10.414481974463987
+Tama o del modelo sin cuantizar: 35208 bytes
+Tama o del modelo cuantizado: 6280 bytes
+########################################
+PREDICCI N  NDICE ANOMAL A N MERO 38.
+ Considera anomal a de NDVI si el valor est  en los percentiles 62 y 38 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.03703159527342752
+Mean CVRMSE: 8.498629307165247
+Standard Deviation RMSE: 0.0021399284939578296
+Standard Deviation CVRMSE: 0.6069059892494717
+Best RMSE: 0.034218666978112024
+Best CVRMSE: 7.660214763674859
+worst RMSE: 0.041181802131815555
+Worst CVRMSE: 9.85762863933102
+PREDICCI N  NDICE ANOMAL A N MERO 39.
+ Considera anomal a de NDVI si el valor est  en los percentiles 61 y 39 de todas las mediciones tomadas
+########################################
+
+
+Mean RMSE: 0.035186538143397825
+Mean CVRMSE: 8.134422343930215
+Standard Deviation RMSE: 0.0027726245977888774
+Standard Deviation CVRMSE: 0.7465491483508502
+Best RMSE: 0.031511374321908855
+Best CVRMSE: 7.059466666201522
+worst RMSE: 0.040214904001431094
+Worst CVRMSE: 9.221970628657198
+
+1/1 [==============================] - ETA: 0s - loss: 0.4072 - accuracy: 0.0000e+00
+1/1 [==============================] - 0s 188ms/step - loss: 0.4072 - accuracy: 0.0000e+00
+Rendimiento del modelo sin cuantizar
+RMSE: 0.031511374321908855
+CVRMSE: 7.059466666201522
+Rendimiento y precisi n del modelo cuantizado:
+RMSE: 0.03160083008580504
+CVRMSE: 8.70880776130831
+Tama o del modelo sin cuantizar: 35208 bytes
+Tama o del modelo cuantizado: 6280 bytes

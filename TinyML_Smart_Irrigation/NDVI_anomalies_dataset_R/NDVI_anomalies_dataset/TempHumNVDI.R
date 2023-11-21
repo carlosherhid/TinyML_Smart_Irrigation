@@ -151,22 +151,27 @@ contrato_ca42 <- sg%>%
   dplyr::filter(Principal == dflt$eemm[1]) %>% na.omit()
 contrato_ca42 <- data.frame(contrato_ca42[[1]],contrato_ca42[[2]], contrato_ca42[[3]]) #We removed the "geometry" column.
 colnames(contrato_ca42) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
+#write.csv(contrato_ca42, file = "contrato_ca42.csv", row.names = TRUE)
 contrato_CA91 <- sg%>%
   dplyr::filter(Principal == dflt$eemm[2]) %>% na.omit()
 contrato_CA91 <- data.frame(contrato_CA91[[1]],contrato_CA91[[2]], contrato_CA91[[3]]) #We removed the "geometry" column.
 colnames(contrato_CA91) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
+#write.csv(contrato_CA91, file = "contrato_CA91.csv", row.names = TRUE)
 contrato_MO12 <-sg%>%
   dplyr::filter(Principal == dflt$eemm[3]) %>% na.omit()
 contrato_MO12 <- data.frame(contrato_MO12[[1]],contrato_MO12[[2]], contrato_MO12[[3]]) #We removed the "geometry" column.
 colnames(contrato_MO12) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
+#write.csv(contrato_MO12, file = "contrato_MO12.csv", row.names = TRUE)
 contrato_MU21 <-sg%>%
   dplyr::filter(Principal == dflt$eemm[4]) %>% na.omit()
 contrato_MU21 <- data.frame(contrato_MU21[[1]],contrato_MU21[[2]], contrato_MU21[[3]]) #We removed the "geometry" column.
 colnames(contrato_MU21) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
+#write.csv(contrato_MU21, file = "contrato_MU21.csv", row.names = TRUE)
 contrato_MU62 <-sg%>%
   dplyr::filter(Principal == dflt$eemm[5]) %>% na.omit()
 contrato_MU62 <- data.frame(contrato_MU62[[1]],contrato_MU62[[2]], contrato_MU62[[3]]) #Eliminamos la columna "geometry"
 colnames(contrato_MU62) <- c("Acometida","Contrato","Estacion") #We changed the names of the columns.
+#write.csv(contrato_MU62, file = "contrato_MU62.csv", row.names = TRUE)
 ################################################
 #We prepare S, which will be the initial NDVI series.
 #Each park is identified by a contract number.
@@ -207,8 +212,10 @@ ant_CA42 <- TH_CA42[1:10,]
 TH_CA42 <- subset(TH_CA42, fecha %in% Date$Fecha)
 TH_CA42 <- rbind(ant_CA42, TH_CA42)
 auxx3 <- TH_CA42 #To use this and prevent accumulation during merging.
+id <- 0
 for(contrato in contrato_ca42$Contrato) {
   # print(contrato)
+  id <- id + 1
   #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
@@ -223,24 +230,24 @@ for(contrato in contrato_ca42$Contrato) {
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
   #We add the two new columns to our dataset.
   ######################################################################################
-  #TODOS LOS PERCENTILES
+  #EVERY PERCENTILE
   ######################################################################################
-  # Vector con los percentiles deseados
+  # Vector with the desired percentiles
   percentiles <- c(seq(0.98, 0.6, -0.01), seq(0.02, 0.4, 0.01))
   
-  # Vector para almacenar los resultados
+  # Vector to store the results
   percentile_values <- vector("numeric", length(percentiles))
   
-  # Datos
+  # Data
   data <- media$NDVI.scl_7_8_9.Mean
   
-  # Calcular los percentiles y almacenar los valores en el vector
+  # Calculate the percentiles and store the values in the vector
   for (i in 1:length(percentiles)) {
     percentile_values[i] <- quantile(x = data, probs = percentiles[i], na.rm = TRUE)
     
   }
   
-  # Separar los percentiles en dos conjuntos
+  # Split the percentiles into two sets
   percentile_98_to_60 <- percentile_values[percentiles >= 0.6 & percentiles <= 0.98]
   percentile_2_to_40 <- percentile_values[percentiles >= 0.02 & percentiles <= 0.4]
   x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
@@ -255,7 +262,7 @@ for(contrato in contrato_ca42$Contrato) {
     anomalias[, i] <- ifelse(is.na(med), NA, anomalous)
   }
   
-  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", contrato, sep = "")
+  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", id, sep = "")
   
   #####################################################################################
   #####################################################################################
@@ -296,9 +303,9 @@ for(contrato in contrato_ca42$Contrato) {
   TH_CA42$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
   TH_CA42$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
   #To correctly rename the added columns.
-  columna_media <- paste("NDVI_mean_",contrato,sep = "")
-  columna_anomalia <- paste("Anomaly_", contrato,sep = "")
-  columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
+  columna_media <- paste("NDVI_mean_",id,sep = "")
+  columna_anomalia <- paste("Anomaly_a_", id,sep = "")
+  columna_anomalia2 <- paste("Anomaly_b_", id,sep = "")
   #we rename it.
   names(TH_CA42)[names(TH_CA42) == "media"] <- columna_media
   names(TH_CA42)[names(TH_CA42) == "anomalia"] <- columna_anomalia
@@ -409,7 +416,7 @@ mean_diffs <- rowMeans(abs_diffs)
 TH_CA42$mean_hum_last10 <- mean_diffs
 #Calculate a column with the mode of anomalies for each date.
 #We select the columns that start with "anomaly".
-anomalies_df <- dplyr::select(TH_CA42,contains("Anomaly"))
+anomalies_df <- dplyr::select(TH_CA42,contains("Anomaly_a"))
 
 ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
 ONES = rowSums(anomalies_df, na.rm=T)        # number of unos
@@ -420,12 +427,12 @@ TH_CA42$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_CA42$anomaliesAgg2 <-ONES / (ONES+ZEROS)
 
 #Now we calculate the anomaly index for the 80th and 20th percentiles, named "anomaliesAgg3".
-anomalies_df <- dplyr::select(TH_CA42,contains("Anomalia2"))
+anomalies_df <- dplyr::select(TH_CA42,contains("Anomaly_b"))
 ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
 ONES = rowSums(anomalies_df, na.rm=T)        # number of unos
 NAS = rowSums(is.na(anomalies_df))          # number of NAs
 TH_CA42$anomaliesAgg3 <-ONES / unique(ONES+ZEROS+NAS)
-#lo calculamos para todas las anomalias
+#We calculated it for all anomalies
 anomaly_columns <- colnames(TH_CA42)[grepl("Anomaly_", colnames(TH_CA42))]
 
 for (i in 1:length(percentile_98_to_60)) {
@@ -441,7 +448,8 @@ for (i in 1:length(percentile_98_to_60)) {
   TH_CA42[[agg_column_name]] <- ONES / (ONES + ZEROS + NAS)
 }
 #Finally, we obtain the number of NDVI measurements for each date.
-TH_CA42$n_mediciones <- (ONES+ZEROS)
+TH_CA42$n_measurements <- (ONES+ZEROS)
+colnames(TH_CA42)[1] <- "date"
 write.table(x = TH_CA42, "anomaliesCA42.csv", row.names = F, sep=";")
 ################################################
 # Dataset CA91 Station
@@ -453,8 +461,10 @@ ant_CA91 <- TH_CA91[1:10,]
 TH_CA91 <- subset(TH_CA91, fecha %in% Date$Fecha)
 TH_CA91 <- rbind(ant_CA91, TH_CA91)
 auxx3 <- TH_CA91 #To use it and prevent accumulation during the merge.
+id <- 0
 for(contrato in contrato_CA91$Contrato) {
   # print(contrato)
+  id <- id + 1
   #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
@@ -469,24 +479,24 @@ for(contrato in contrato_CA91$Contrato) {
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
   #We add the two new columns to our dataset.
   ######################################################################################
-  #TODOS LOS PERCENTILES
+  #EVERY PERCENTILE
   ######################################################################################
-  # Vector con los percentiles deseados
+  # Vector with the desired percentiles
   percentiles <- c(seq(0.98, 0.6, -0.01), seq(0.02, 0.4, 0.01))
   
-  # Vector para almacenar los resultados
+  # Vector to store the results
   percentile_values <- vector("numeric", length(percentiles))
   
-  # Datos
+  # Data
   data <- media$NDVI.scl_7_8_9.Mean
   
-  # Calcular los percentiles y almacenar los valores en el vector
+  # Calculate the percentiles and store the values in the vector
   for (i in 1:length(percentiles)) {
     percentile_values[i] <- quantile(x = data, probs = percentiles[i], na.rm = TRUE)
     
   }
   
-  # Separar los percentiles en dos conjuntos
+  # Split the percentiles into two sets
   percentile_98_to_60 <- percentile_values[percentiles >= 0.6 & percentiles <= 0.98]
   percentile_2_to_40 <- percentile_values[percentiles >= 0.02 & percentiles <= 0.4]
   x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
@@ -501,7 +511,7 @@ for(contrato in contrato_CA91$Contrato) {
     anomalias[, i] <- ifelse(is.na(med), NA, anomalous)
   }
   
-  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", contrato, sep = "")
+  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", id, sep = "")
   
   #####################################################################################
   #####################################################################################
@@ -542,9 +552,9 @@ for(contrato in contrato_CA91$Contrato) {
   TH_CA91$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
   TH_CA91$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
   #To rename the added columns correctly.
-  columna_media <- paste("NDVI_mean_",contrato,sep = "")
-  columna_anomalia <- paste("Anomaly_", contrato,sep = "")
-  columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
+  columna_media <- paste("NDVI_mean_",id,sep = "")
+  columna_anomalia <- paste("Anomaly_a_", id,sep = "")
+  columna_anomalia2 <- paste("Anomaly_b_", id,sep = "")
   #we rename them
   names(TH_CA91)[names(TH_CA91) == "media"] <- columna_media
   names(TH_CA91)[names(TH_CA91) == "anomalia"] <- columna_anomalia
@@ -638,7 +648,7 @@ for (i in 1:(ncol(med_temp)-1)) {
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences of each pair of columns
 mean_diffs <- rowMeans(abs_diffs)
 TH_CA91$mean_temp_last10 <- mean_diffs
 #Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
@@ -650,27 +660,27 @@ for (i in 1:(ncol(med_hum)-1)) {
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences of each pair of columns
 mean_diffs <- rowMeans(abs_diffs)
 TH_CA91$mean_hum_last10 <- mean_diffs
-#Calcular columna con moda de anomalías para cada fecha
-#seleccionamos las columnas que empiezan por anomaly
-anomalies_df <- dplyr::select(TH_CA91,contains("Anomaly"))
+#Calculate column with mode of anomalies for each date.
+#Select columns that start with 'anomaly'
+anomalies_df <- dplyr::select(TH_CA91,contains("Anomaly_a"))
 
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of ones
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 
 #TH_CA91$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_CA91$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_CA91$anomaliesAgg2 <-ONES / (ONES+ZEROS)
 #Calculamos ahora el índice de anomalías del percentil 80 y 20, anomaliesAgg3
-anomalies_df <- dplyr::select(TH_CA91,contains("Anomalia2"))
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+anomalies_df <- dplyr::select(TH_CA91,contains("Anomaly_b"))
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of ones
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 TH_CA91$anomaliesAgg3 <-ONES / unique(ONES+ZEROS+NAS)
-#lo calculamos para todas las anomalias
+#We calculated it for all anomalies
 anomaly_columns <- colnames(TH_CA91)[grepl("Anomaly_", colnames(TH_CA91))]
 
 for (i in 1:length(percentile_98_to_60)) {
@@ -685,8 +695,9 @@ for (i in 1:length(percentile_98_to_60)) {
   
   TH_CA91[[agg_column_name]] <- ONES / (ONES + ZEROS + NAS)
 }
-#Por ultimo obtenemos el numero de mediciones de NDVI en cada fecha
-TH_CA91$n_mediciones <- (ONES+ZEROS)
+#Finally, we obtain the number of NDVI measurements for each date
+TH_CA91$n_measurements <- (ONES+ZEROS)
+colnames(TH_CA91)[1] <- "date"
 write.table(x = TH_CA91, "anomaliesCA91.csv", row.names = F, sep=";")
 ################################################
 # Dataset Estación MO12
@@ -698,8 +709,10 @@ ant_MO12 <- TH_MO12[1:10,]
 TH_MO12 <- subset(TH_MO12, fecha %in% Date$Fecha)
 TH_MO12 <- rbind(ant_MO12, TH_MO12)
 auxx3 <- TH_MO12 #To use it and prevent accumulation during the merge.
+id <- 0
 for(contrato in contrato_MO12$Contrato) {
   # print(contrato)
+  id <- id + 1
   #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
@@ -714,24 +727,24 @@ for(contrato in contrato_MO12$Contrato) {
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
   #We add the two new columns to our dataset.
   ######################################################################################
-  #TODOS LOS PERCENTILES
+  #EVERY PERCENTILE
   ######################################################################################
-  # Vector con los percentiles deseados
+  # Vector with the desired percentiles
   percentiles <- c(seq(0.98, 0.6, -0.01), seq(0.02, 0.4, 0.01))
   
-  # Vector para almacenar los resultados
+  # Vector to store the results
   percentile_values <- vector("numeric", length(percentiles))
   
-  # Datos
+  # Data
   data <- media$NDVI.scl_7_8_9.Mean
   
-  # Calcular los percentiles y almacenar los valores en el vector
+  # Calculate the percentiles and store the values in the vector
   for (i in 1:length(percentiles)) {
     percentile_values[i] <- quantile(x = data, probs = percentiles[i], na.rm = TRUE)
     
   }
   
-  # Separar los percentiles en dos conjuntos
+  # Split the percentiles into two sets
   percentile_98_to_60 <- percentile_values[percentiles >= 0.6 & percentiles <= 0.98]
   percentile_2_to_40 <- percentile_values[percentiles >= 0.02 & percentiles <= 0.4]
   x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
@@ -746,7 +759,7 @@ for(contrato in contrato_MO12$Contrato) {
     anomalias[, i] <- ifelse(is.na(med), NA, anomalous)
   }
   
-  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", contrato, sep = "")
+  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", id, sep = "")
   
   #####################################################################################
   #####################################################################################
@@ -787,9 +800,9 @@ for(contrato in contrato_MO12$Contrato) {
   TH_MO12$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
   TH_MO12$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
   #To rename the added columns correctly.
-  columna_media <- paste("NDVI_mean_",contrato,sep = "")
-  columna_anomalia <- paste("Anomaly_", contrato,sep = "")
-  columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
+  columna_media <- paste("NDVI_mean_",id,sep = "")
+  columna_anomalia <- paste("Anomaly_a_", id,sep = "")
+  columna_anomalia2 <- paste("Anomaly_b_", id,sep = "")
   #we rename them
   names(TH_MO12)[names(TH_MO12) == "media"] <- columna_media
   names(TH_MO12)[names(TH_MO12) == "anomalia"] <- columna_anomalia
@@ -882,7 +895,7 @@ for (i in 1:(ncol(med_temp)-1)) {
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences of each pair of columns
 mean_diffs <- rowMeans(abs_diffs)
 TH_MO12$mean_temp_last10 <- mean_diffs
 #Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
@@ -894,27 +907,27 @@ for (i in 1:(ncol(med_hum)-1)) {
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences of each pair of columns
 mean_diffs <- rowMeans(abs_diffs)
 TH_MO12$mean_hum_last10 <- mean_diffs
-#Calcular columna con moda de anomalías para cada fecha
-#seleccionamos las columnas que empiezan por anomaly
-anomalies_df <- dplyr::select(TH_MO12,contains("Anomaly"))
+#Calculate column with mode of anomalies for each date.
+#Select columns that start with 'anomaly'
+anomalies_df <- dplyr::select(TH_MO12,contains("Anomaly_a"))
 
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of ones
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 
 #TH_MO12$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_MO12$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_MO12$anomaliesAgg2 <-ONES / (ONES+ZEROS)
 #Calculamos ahora el índice de anomalías del percentil 80 y 20, anomaliesAgg3
-anomalies_df <- dplyr::select(TH_MO12,contains("Anomalia2"))
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+anomalies_df <- dplyr::select(TH_MO12,contains("Anomaly_b"))
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of ones
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 TH_MO12$anomaliesAgg3 <-ONES / unique(ONES+ZEROS+NAS)
-#lo calculamos para todas las anomalias
+#We calculated it for all anomalies
 anomaly_columns <- colnames(TH_MO12)[grepl("Anomaly_", colnames(TH_MO12))]
 
 for (i in 1:length(percentile_98_to_60)) {
@@ -929,8 +942,9 @@ for (i in 1:length(percentile_98_to_60)) {
   
   TH_MO12[[agg_column_name]] <- ONES / (ONES + ZEROS + NAS)
 }
-#Por ultimo obtenemos el numero de mediciones de NDVI en cada fecha
-TH_MO12$n_mediciones <- (ONES+ZEROS)
+#Finally, we obtain the number of NDVI measurements for each date
+TH_MO12$n_measurements <- (ONES+ZEROS)
+colnames(TH_MO12)[1] <- "date"
 write.table(x = TH_MO12, "anomaliesMO12.csv", row.names = F, sep=";")
 ################################################
 # Dataset Estación MU21
@@ -942,8 +956,10 @@ ant_MU21 <- TH_MU21[1:10,]
 TH_MU21 <- subset(TH_MU21, fecha %in% Date$Fecha)
 TH_MU21 <- rbind(ant_MU21, TH_MU21)
 auxx3 <- TH_MU21 #To use it and prevent accumulation during the merge.
+id <- 0
 for(contrato in contrato_MU21$Contrato) {
   # print(contrato)
+  id <- id + 1
   #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
@@ -958,24 +974,24 @@ for(contrato in contrato_MU21$Contrato) {
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
   #We add the two new columns to our dataset.
   ######################################################################################
-  #TODOS LOS PERCENTILES
+  #EVERY PERCENTILE
   ######################################################################################
-  # Vector con los percentiles deseados
+  # Vector with the desired percentiles
   percentiles <- c(seq(0.98, 0.6, -0.01), seq(0.02, 0.4, 0.01))
   
-  # Vector para almacenar los resultados
+  # Vector to store the results
   percentile_values <- vector("numeric", length(percentiles))
   
-  # Datos
+  # Data
   data <- media$NDVI.scl_7_8_9.Mean
   
-  # Calcular los percentiles y almacenar los valores en el vector
+  # Calculate the percentiles and store the values in the vector
   for (i in 1:length(percentiles)) {
     percentile_values[i] <- quantile(x = data, probs = percentiles[i], na.rm = TRUE)
     
   }
   
-  # Separar los percentiles en dos conjuntos
+  # Split the percentiles into two sets
   percentile_98_to_60 <- percentile_values[percentiles >= 0.6 & percentiles <= 0.98]
   percentile_2_to_40 <- percentile_values[percentiles >= 0.02 & percentiles <= 0.4]
   x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
@@ -990,7 +1006,7 @@ for(contrato in contrato_MU21$Contrato) {
     anomalias[, i] <- ifelse(is.na(med), NA, anomalous)
   }
   
-  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", contrato, sep = "")
+  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", id, sep = "")
   
   #####################################################################################
   #####################################################################################
@@ -1031,9 +1047,9 @@ for(contrato in contrato_MU21$Contrato) {
   TH_MU21$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
   TH_MU21$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
   #To rename the added columns correctly.
-  columna_media <- paste("NDVI_mean_",contrato,sep = "")
-  columna_anomalia <- paste("Anomaly_", contrato,sep = "")
-  columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
+  columna_media <- paste("NDVI_mean_",id,sep = "")
+  columna_anomalia <- paste("Anomaly_a_", id,sep = "")
+  columna_anomalia2 <- paste("Anomaly_b_", id,sep = "")
   #we rename them
   names(TH_MU21)[names(TH_MU21) == "media"] <- columna_media
   names(TH_MU21)[names(TH_MU21) == "anomalia"] <- columna_anomalia
@@ -1127,7 +1143,7 @@ for (i in 1:(ncol(med_temp)-1)) {
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences of each pair of columns
 mean_diffs <- rowMeans(abs_diffs)
 TH_MU21$mean_temp_last10 <- mean_diffs
 #Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
@@ -1139,27 +1155,27 @@ for (i in 1:(ncol(med_hum)-1)) {
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences of each pair of columns
 mean_diffs <- rowMeans(abs_diffs)
 TH_MU21$mean_hum_last10 <- mean_diffs
-#Calcular columna con moda de anomalías para cada fecha
-#seleccionamos las columnas que empiezan por anomaly
-anomalies_df <- dplyr::select(TH_MU21,contains("Anomaly"))
+#Calculate column with mode of anomalies for each date.
+#Select columns that start with 'anomaly'
+anomalies_df <- dplyr::select(TH_MU21,contains("Anomaly_a"))
 
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of ones
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 
 #TH_MU21$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_MU21$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_MU21$anomaliesAgg2 <-ONES / (ONES+ZEROS)
 #Calculamos ahora el índice de anomalías del percentil 80 y 20, anomaliesAgg3
-anomalies_df <- dplyr::select(TH_MU21,contains("Anomalia2"))
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+anomalies_df <- dplyr::select(TH_MU21,contains("Anomaly_b"))
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of ones
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 TH_MU21$anomaliesAgg3 <-ONES / unique(ONES+ZEROS+NAS)
-#lo calculamos para todas las anomalias
+#We calculated it for all anomalies
 anomaly_columns <- colnames(TH_MO12)[grepl("Anomaly_", colnames(TH_MU21))]
 
 for (i in 1:length(percentile_98_to_60)) {
@@ -1174,8 +1190,9 @@ for (i in 1:length(percentile_98_to_60)) {
   
   TH_MU21[[agg_column_name]] <- ONES / (ONES + ZEROS + NAS)
 }
-#Por ultimo obtenemos el numero de mediciones de NDVI en cada fecha
-TH_MU21$n_mediciones <- (ONES+ZEROS)
+#Finally, we obtain the number of NDVI measurements for each date
+TH_MU21$n_measurements <- (ONES+ZEROS)
+colnames(TH_MU21)[1] <- "date"
 write.table(x = TH_MU21, "anomaliesMU21.csv", row.names = F, sep=";")
 ################################################
 # Dataset Estación MU62
@@ -1187,8 +1204,10 @@ ant_MU62 <- TH_MU62[1:10,]
 TH_MU62 <- subset(TH_MU62, fecha %in% Date$Fecha)
 TH_MU62 <- rbind(ant_MU62, TH_MU62)
 auxx3 <- TH_MU62 #To use it and prevent accumulation during the merge.
+id <- 0
 for(contrato in contrato_MU62$Contrato) {
   # print(contrato)
+  id <- id + 1
   #We obtain the mean NDVI values for that park.
   media <- 
     listDF2DF(S) %>%
@@ -1203,24 +1222,24 @@ for(contrato in contrato_MU62$Contrato) {
   percentil_20 <- quantile(x=media$NDVI.scl_7_8_9.Mean, probs = 0.2, na.rm = TRUE)
   #We add the two new columns to our dataset.
   ######################################################################################
-  #TODOS LOS PERCENTILES
+  #EVERY PERCENTILE
   ######################################################################################
-  # Vector con los percentiles deseados
+  # Vector with the desired percentiles
   percentiles <- c(seq(0.98, 0.6, -0.01), seq(0.02, 0.4, 0.01))
   
-  # Vector para almacenar los resultados
+  # Vector to store the results
   percentile_values <- vector("numeric", length(percentiles))
   
-  # Datos
+  # Data
   data <- media$NDVI.scl_7_8_9.Mean
   
-  # Calcular los percentiles y almacenar los valores en el vector
+  # Calculate the percentiles and store the values in the vector
   for (i in 1:length(percentiles)) {
     percentile_values[i] <- quantile(x = data, probs = percentiles[i], na.rm = TRUE)
     
   }
   
-  # Separar los percentiles en dos conjuntos
+  # Split the percentiles into two sets
   percentile_98_to_60 <- percentile_values[percentiles >= 0.6 & percentiles <= 0.98]
   percentile_2_to_40 <- percentile_values[percentiles >= 0.02 & percentiles <= 0.4]
   x<-merge(auxx3, media, by.x = "fecha",by.y = "Fecha", all.x = TRUE) #We fill with NA when there are no NDVI values.
@@ -1235,7 +1254,7 @@ for(contrato in contrato_MU62$Contrato) {
     anomalias[, i] <- ifelse(is.na(med), NA, anomalous)
   }
   
-  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", contrato, sep = "")
+  colnames(anomalias) <- paste("Anomaly_", 1:length(percentile_98_to_60), "_", id, sep = "")
   
   #####################################################################################
   #####################################################################################
@@ -1276,9 +1295,9 @@ for(contrato in contrato_MU62$Contrato) {
   TH_MU62$anomalia <- unlist(anomalia) #We add the anomalies to the dataset.
   TH_MU62$anomalia2 <- unlist(anomalia2) #We add the anomalies to the dataset.
   #To rename the added columns correctly.
-  columna_media <- paste("NDVI_mean_",contrato,sep = "")
-  columna_anomalia <- paste("Anomaly_", contrato,sep = "")
-  columna_anomalia2 <- paste("Anomalia2_", contrato,sep = "")
+  columna_media <- paste("NDVI_mean_",id,sep = "")
+  columna_anomalia <- paste("Anomaly_a_", id,sep = "")
+  columna_anomalia2 <- paste("Anomaly_b_", id,sep = "")
   #we rename them
   names(TH_MU62)[names(TH_MU62) == "media"] <- columna_media
   names(TH_MU62)[names(TH_MU62) == "anomalia"] <- columna_anomalia
@@ -1372,7 +1391,7 @@ for (i in 1:(ncol(med_temp)-1)) {
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences of each pair of columns
 mean_diffs <- rowMeans(abs_diffs)
 TH_MU62$mean_temp_last10 <- mean_diffs
 #Now we calculate a column that contains the average temperature difference between a day and its following day over the last ten days (relative to the date in the row).
@@ -1384,27 +1403,27 @@ for (i in 1:(ncol(med_hum)-1)) {
   diff_df <- cbind(diff_df, col_diff)
 }
 abs_diffs <- abs(diff_df)
-# calcular la media de las diferencias absolutas de cada par de columnas
+# Calculate the mean of the absolute differences of each pair of columns
 mean_diffs <- rowMeans(abs_diffs)
 TH_MU62$mean_hum_last10 <- mean_diffs
-#Calcular columna con moda de anomalías para cada fecha
-#seleccionamos las columnas que empiezan por anomaly
-anomalies_df <- dplyr::select(TH_MU62,contains("Anomaly"))
+#Calculate column with mode of anomalies for each date.
+#Select columns that start with 'anomaly'
+anomalies_df <- dplyr::select(TH_MU62,contains("Anomaly_a"))
 
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of ones
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 
 #TH_MU62$anomaliesAgg <-ONES / (ONES + ZEROS)
 TH_MU62$anomaliesAgg <-ONES / unique(ONES+ZEROS+NAS)
 TH_MU62$anomaliesAgg2 <-ONES / (ONES+ZEROS)
 #Calculamos ahora el índice de anomalías del percentil 80 y 20, anomaliesAgg3
-anomalies_df <- dplyr::select(TH_MU62,contains("Anomalia2"))
-ZEROS = rowSums(anomalies_df == 0, na.rm = T) # numero de ceros
-ONES = rowSums(anomalies_df, na.rm=T)        # numero de unos
-NAS = rowSums(is.na(anomalies_df))          # numero de NAs
+anomalies_df <- dplyr::select(TH_MU62,contains("Anomaly_b"))
+ZEROS = rowSums(anomalies_df == 0, na.rm = T) # number of ceros
+ONES = rowSums(anomalies_df, na.rm=T)        # number of ones
+NAS = rowSums(is.na(anomalies_df))          # number of NAs
 TH_MU62$anomaliesAgg3 <-ONES / unique(ONES+ZEROS+NAS)
-#lo calculamos para todas las anomalias
+#We calculated it for all anomalies
 anomaly_columns <- colnames(TH_MU62)[grepl("Anomaly_", colnames(TH_MU62))]
 
 for (i in 1:length(percentile_98_to_60)) {
@@ -1419,6 +1438,7 @@ for (i in 1:length(percentile_98_to_60)) {
   
   TH_MU62[[agg_column_name]] <- ONES / (ONES + ZEROS + NAS)
 }
-#Por ultimo obtenemos el numero de mediciones de NDVI en cada fecha
-TH_MU62$n_mediciones <- (ONES+ZEROS)
+#Finally, we obtain the number of NDVI measurements for each date
+TH_MU62$n_measurements <- (ONES+ZEROS)
+colnames(TH_MU62)[1] <- "date"
 write.table(x = TH_MU62, "anomaliesMU62.csv", row.names = F, sep=";")
