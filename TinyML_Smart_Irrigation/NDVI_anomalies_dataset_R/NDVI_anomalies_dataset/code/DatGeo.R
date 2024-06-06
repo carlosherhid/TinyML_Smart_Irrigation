@@ -492,7 +492,7 @@ DatGeo$plotMapa <- function(obj_sf = DatGeo$leerJardines(), group_var = "Barrio"
                             n = 3L, cluster = T, palete = NULL, fillColor = NULL,
                             color = NULL, sz = 1, r = 10, lan = dflt$lan,
                             carpeta = paths$saves(lan), nombre_fichero = NULL,
-                            width = 700, height = 500, remove_controls = T) {
+                            width = 700, height = 500, remove_controls = T,contratos_mapping = NULL) {
 
   if (!is.null(filter_var) & !is.null(filter_values))
     obj_sf %<>% dplyr::filter(obj_sf[[filter_var]] %in% filter_values)
@@ -507,11 +507,20 @@ DatGeo$plotMapa <- function(obj_sf = DatGeo$leerJardines(), group_var = "Barrio"
   group <- if (is.null(group_var)) switch(lan,
                                           "sp" = "Jardines",
                                           "Gardens") else obj_sf[[group_var]]
-  popup <- if ("Contrato" %in% names(obj_sf))
-    paste0("<strong>Acometida: </strong>", obj_sf$Acometida,
-           "<br><strong>Contrato: </strong>", obj_sf$Contrato) else
-             if ("CODEST" %in% names(obj_sf))
-               paste0("<br><strong>Estacion: </strong>", obj_sf$CODEST)
+  popup <- if ("Contrato" %in% names(obj_sf)) { #modified
+    # Encuentra el identificador anonimizado para cada contrato
+    anon_contratos <- sapply(obj_sf$Contrato, function(x) {
+      anon_id <- contratos_mapping$Replaced[contratos_mapping$Original == x]
+      if (length(anon_id) > 0) {
+        return(as.character(anon_id))
+      } else {
+        return(NA)  # Por si acaso hay algún ID que no se encuentra en el mapeo
+      }
+    })
+  # Usar anon_contratos
+  } else if ("CODEST" %in% names(obj_sf)) {
+    paste0("<br><strong>Estacion: </strong>", obj_sf$CODEST)
+  }
 
   if (!is.null(plot_var)) {
 

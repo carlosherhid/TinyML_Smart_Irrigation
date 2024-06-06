@@ -1,5 +1,5 @@
 ########################################
-PREDICCI N  NDICE ANOMAL A N MERO 3.
+PREDICCIóN  INDICE ANOMALiA NuMERO 3.
  Considera anomal a de NDVI si el valor est  en los percentiles 97 y 3 de todas las mediciones tomadas
 ########################################
 
