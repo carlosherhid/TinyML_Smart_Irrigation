@@ -1,0 +1,14 @@
+          fecha       tmed      hrmed  NDVI_mean_6431524  Anomaly_6431524  ...  Anomaly_35_6605396  Anomaly_36_6605396  Anomaly_37_6605396  Anomaly_38_6605396  Anomaly_39_6605396
+0    2018-01-16   9.850000  64.304167                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+1    2018-01-21  17.116667  37.891667                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+3    2018-01-31  11.737500  73.883333                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+4    2018-02-05   8.687500  65.608333                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+5    2018-02-10  10.137500  40.329167                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+..          ...        ...        ...                ...              ...  ...                 ...                 ...                 ...                 ...                 ...
+199  2021-02-19  12.500000  69.091667                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+201  2021-03-11  14.141667  59.500000                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+202  2021-03-16  12.804167  66.562500                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+203  2021-03-21  10.016667  50.400000                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+204  2021-03-26  17.025000  58.291667                NaN              NaN  ...                 NaN                 NaN                 NaN                 NaN                 NaN
+
+[158 rows x 13928 columns]

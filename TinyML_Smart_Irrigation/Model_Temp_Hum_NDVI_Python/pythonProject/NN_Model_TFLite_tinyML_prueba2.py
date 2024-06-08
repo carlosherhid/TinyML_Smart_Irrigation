@@ -12,13 +12,14 @@ print(data)
 
 datos_CA42 = data.dropna(subset=['anomaliesAgg'])  # Eliminamos las filas que contienen valores NaN en anomaliesAgg
 df = datos_CA42
+df
 frecuencia = datos_CA42['anomaliesAgg'].value_counts()
 correlacionT1 = df['tmed'].corr(df['anomaliesAgg'])
 correlacionH1 = df['hrmed'].corr(df['anomaliesAgg'])
 correlacionT2 = df['tmed'].corr(df['anomaliesAgg2'])
 correlacionH2 = df['hrmed'].corr(df['anomaliesAgg2'])
 
-df = datos_CA42.loc[datos_CA42['n_measurements'] > 4]
+df = datos_CA42.loc[datos_CA42['n_mediciones'] > 4] # CUIDADO n_measurements!!s
 df['tmed'].corr(df['anomaliesAgg'])
 df['hrmed'].corr(df['anomaliesAgg'])
 df['tmed'].corr(df['anomaliesAgg2'])
@@ -46,8 +47,8 @@ d5 = datos_MO12
 
 df = pd.concat([d1, d2, d3, d4, d5])
 
-df['n_measurements'].value_counts()
-df = df.loc[df['n_measurements'] > 70]
+df['n_mediciones'].value_counts()
+df = df.loc[df['n_mediciones'] > 70]
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -60,7 +61,7 @@ from keras.layers import Dense
 # Split the data into input features and output variable
 X = df[['tmed', 'hrmed', 'temp1', 'temp2', 'temp3', 'temp4', 'temp5', 'temp6', 'temp7', 'temp8', 'temp9', 'temp10',
         'hum1', 'hum2', 'hum3', 'hum4', 'hum5', 'hum6', 'hum7', 'hum8', 'hum9', 'hum10', 'mean_temp_last10',
-        'mean_hum_last10', 'n_measurements']]
+        'mean_hum_last10', 'n_mediciones']]
 y = df['anomaliesAgg3']
 # Inicializamos una lista vacía para almacenar las cadenas de los distintos indices de anomalia
 cadenas = []
@@ -75,9 +76,9 @@ indices = cadenas
 # Set the seed for reproducibility
 import sys
 
-archivo_salida = open('resultados_pruebas_indices_prueba.txt', 'w')
-sys.stdout = archivo_salida
-i=4
+#archivo_salida = open('resultados_pruebas_indices_prueba.txt', 'w')
+#sys.stdout = archivo_salida
+i=3
 y = df[indices[i]]
 seed = 42
 np.random.seed(seed)
